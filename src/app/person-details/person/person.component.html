@@ -1,0 +1,121 @@
+<div class="header">
+  <mat-icon>dashboard</mat-icon><span class="title">User Profile</span>
+</div><br>
+<div class="active-content">
+    <form class="form-field-container">
+      <mat-form-field class="form-field">
+        <mat-label>Staff ID</mat-label>
+        <input matInput name="staff-id" [(ngModel)]="person.Person_ID"  disabled>
+      </mat-form-field><br>
+      <mat-form-field class="form-field">
+        <mat-label>First Name</mat-label>
+        <input matInput name="staff-first-name" [disabled]="isDisabled? '' : null" [(ngModel)]="person.First_Name" >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Last Name</mat-label>
+        <input matInput name="staff-last-name" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Last_Name">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Alias Name</mat-label>
+        <input matInput name="staff-alias" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Alias_Name">
+      </mat-form-field>
+      <mat-form-field  class="form-field-dropdown" appearance="fill">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="picker" name="dob" [disabled]="isDisabled? '' : null" [(ngModel)]="person.DOB">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Primary MailID</mat-label>
+        <input matInput name="staff-primary-mail" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Primary_MailID">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Secondary MailID</mat-label>
+        <input matInput name="staff-secondary-mail" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Secondary_MailID">
+      </mat-form-field>
+      <br>
+      <mat-radio-group class="form-field" name="Gender" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Gender_Ref" aria-label="Gender">
+        <mat-radio-button [value]="1">Male</mat-radio-button>
+        <mat-radio-button [value]="2">Female</mat-radio-button>
+      </mat-radio-group><br><br>
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Marital Status</mat-label>
+        <mat-select name="marital-status" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Marital_Status_Ref">
+          <mat-option [value]="1">Single</mat-option>
+          <mat-option [value]="2">Married</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Community</mat-label>
+        <mat-select name="community" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Community_Ref">
+          <mat-option *ngFor="let com of community; let i = index" [value]="i">{{com}}</mat-option>
+
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Caste</mat-label>
+        <input matInput name="staff-caste" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Caste">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Aadhar Card</mat-label>
+        <input matInput name="staff-aadhar-no" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Aadhar_Card">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Passport Number</mat-label>
+        <input matInput name="staff-passport-number" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Passport_Number">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Intercom Number</mat-label>
+        <input matInput name="staff-intercom-number" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Intercom_Number">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Primary Contact</mat-label>
+        <input matInput name="staff-primary-contact" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Primary_ContactNumber">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Secondary Contact</mat-label>
+        <input matInput name="staff-secondary-contact" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Secondary_ContactNumber">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Door No, Street Name</mat-label>
+        <input matInput name="staff-address-1" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Address_Line1">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Area</mat-label>
+        <input matInput name="staff-address-2" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Address_Line2" >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>City</mat-label>
+        <input matInput name="staff-address-3" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Address_Line3">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>ZipCode</mat-label>
+        <input matInput name="staff-address-4" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Address_Line4">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>PAN Card</mat-label>
+        <input matInput name="staf-pan-card" [disabled]="isDisabled? '' : null" [(ngModel)]="person.PAN_Card">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Room Number</mat-label>
+        <input matInput name="staff-room-no" [disabled]="isDisabled? '' : null" [(ngModel)]="person.Room_Num">
+      </mat-form-field>
+      <br>
+
+      <div class="form-field">
+        <h3>Roles</h3>
+        <mat-chip-list>
+          <mat-chip>Role 1</mat-chip>
+          <mat-chip>Role 2</mat-chip>
+        </mat-chip-list>
+
+      </div><br>
+
+      <button mat-raised-button class="buttons" (click)="onEdit()" *ngIf="isDisabled == true">Edit</button>
+      <button mat-raised-button class="buttons" (click)="onSubmit()" color="accent" *ngIf="isDisabled == false">Confirm</button>
+    </form>
+
+
+  </div>
