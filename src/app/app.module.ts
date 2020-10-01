@@ -22,9 +22,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { HomeComponent } from './home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { HomeNewComponent } from './home-new/home-new.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
@@ -42,8 +40,6 @@ import { EducationModelComponent } from './person-details/education/education-mo
     LoginComponent,
     PersonDetailsComponent,
     NavComponent,
-    HomeComponent,
-    HomeNewComponent,
     PersonComponent,
     EducationComponent,
     EducationModelComponent
