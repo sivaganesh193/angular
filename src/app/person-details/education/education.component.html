@@ -1,0 +1,46 @@
+<div class="header">
+  <mat-icon>dashboard</mat-icon><span class="title">Educational Qualification</span>
+</div><br>
+<div class="active-content">
+  <mat-form-field class="form-field">
+    <mat-label>Staff ID</mat-label>
+    <input matInput value="849405"  disabled>
+  </mat-form-field> <button mat-raised-button class="add-btn" color="primary" (click)="createDialog()" >Add Qualification</button> <br>
+  <form class="form-field-container" *ngFor="let qualification of qualifications">
+    <mat-form-field class="form-field">
+      <mat-label>Institution</mat-label>
+      <input matInput [value]="qualification.institution" disabled >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>University</mat-label>
+      <input matInput [value]="qualification.university" disabled >
+    </mat-form-field>
+    <mat-form-field  class="form-field" appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [value]="qualification.startYear" disabled >
+    </mat-form-field>
+    <mat-form-field  class="form-field" appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input matInput [value]="qualification.endYear" disabled >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Thesis Title</mat-label>
+      <input matInput [value]="qualification.thesisTitle" disabled  >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Specilization</mat-label>
+      <input matInput [value]="qualification.specialization"  disabled >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Faculty Research</mat-label>
+      <input matInput [value]="qualification.research" disabled  >
+    </mat-form-field><br>
+    <br>
+    <div class="form-field">
+    <button mat-raised-button color="accent" (click)="openDialog(qualification.qid)">Update</button>
+    </div><br>
+    <mat-divider></mat-divider>
+
+  </form>
+
+</div>
