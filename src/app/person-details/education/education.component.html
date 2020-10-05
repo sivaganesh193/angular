@@ -4,40 +4,56 @@
 <div class="active-content">
   <mat-form-field class="form-field">
     <mat-label>Staff ID</mat-label>
-    <input matInput value="849405"  disabled>
+    <input matInput value="123"  readonly="true">
   </mat-form-field> <button mat-raised-button class="add-btn" color="primary" (click)="createDialog()" >Add Qualification</button> <br>
   <form class="form-field-container" *ngFor="let qualification of qualifications">
     <mat-form-field class="form-field">
       <mat-label>Institution</mat-label>
-      <input matInput [value]="qualification.institution" disabled >
+      <input matInput [value]="qualification.Institution" readonly="true" >
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>University</mat-label>
-      <input matInput [value]="qualification.university" disabled >
+      <input matInput [value]="qualification.University" readonly="true" >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Qualification Level</mat-label>
+      <input matInput value="POST GRADUATE" readonly="true" >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Degree</mat-label>
+      <input matInput value="B.E." readonly="true" >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Branch</mat-label>
+      <input matInput value="COMPUTER SCIENCE AND ENGINEERING" readonly="true" >
     </mat-form-field>
     <mat-form-field  class="form-field" appearance="fill">
       <mat-label>Start Date</mat-label>
-      <input matInput [value]="qualification.startYear" disabled >
+      <input matInput [value]="qualification.Start_Date" readonly="true" >
     </mat-form-field>
     <mat-form-field  class="form-field" appearance="fill">
       <mat-label>End Date</mat-label>
-      <input matInput [value]="qualification.endYear" disabled >
+      <input matInput [value]="qualification.End_Date" readonly="true" >
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Class Obtained</mat-label>
+      <input matInput value="First Class" readonly="true" >
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Thesis Title</mat-label>
-      <input matInput [value]="qualification.thesisTitle" disabled  >
+      <input matInput [value]="qualification.Thesis_Title" readonly="true"  >
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Specilization</mat-label>
-      <input matInput [value]="qualification.specialization"  disabled >
+      <input matInput [value]="qualification.Specialization"  readonly="true" >
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Faculty Research</mat-label>
-      <input matInput [value]="qualification.research" disabled  >
+      <input matInput [value]="qualification.Faculty_Research" readonly="true"  >
     </mat-form-field><br>
     <br>
     <div class="form-field">
-    <button mat-raised-button color="accent" (click)="openDialog(qualification.qid)">Update</button>
+    <button mat-raised-button color="accent" (click)="openDialog(qualification.Qualification_ID)">Update</button>
     </div><br>
     <mat-divider></mat-divider>
 

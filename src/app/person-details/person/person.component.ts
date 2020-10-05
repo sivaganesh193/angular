@@ -1,13 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PersonDetailsService } from '../person-details.service';
-
+import {Apollo, QueryRef} from 'apollo-angular';
+import gql from 'graphql-tag';
+import { PersonModelComponent } from './person-model/person-model.component';
+import { PersonModel } from './person.model';
+import {PersonDetailsService} from '../person-details.service';
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.scss', '../person-details.component.scss']
 })
+
 export class PersonComponent implements OnInit {
   prefix = ['Mr.', 'Mrs.', 'Dr.', 'Ms.'];
   community = ['BACKWARD COMMUNITY', 'SCHEDULED TRIBE',
@@ -15,50 +19,72 @@ export class PersonComponent implements OnInit {
   caste = ['BACKWARD COMMUNITY', 'SCHEDULED TRIBE',
             'SCHEDULED CASTE', 'MOST BACKWARD COMMUNITY', 'OTHER COMMUNITY'];
   maritalStatus = ['Single', 'Married'];
-  isDisabled = true;
-  person = {
-    Aadhar_Card: 123412341234,
-    Address_Line1: '12/15, 21st Street',
-    Address_Line2: 'Nanganallur',
-    Address_Line3: 'Chennai',
-    Address_Line4: '600061',
-    Alias_Name: 'Dhana',
-    Caste: '308 Nagaram',
-    Community_Ref: 1,
-    DOB: '1989-06-05T18:30:00.000Z',
-    First_Name: 'Dhanalakshmi',
-    Gender_Ref: 2,
-    Intercom_Number: '123',
-    Last_Name: 'Sangili Sabapathy',
-    Marital_Status_Ref: 2,
-    PAN_Card: 'pancardDet',
-    Passport_Number: '123456789',
-    Person_ID: 709485,
-    Photo: null,
-    Prefix_Ref: 1,
-    Primary_ContactNumber: 9985596879,
-    Primary_MailID: 'dhanalaxmibtech@gmail.com',
-    Room_Num: '123',
-    Secondary_ContactNumber: '8896857685',
-    Secondary_MailID: 'secondary@gmail.com'
-  };
+
+  person: PersonModel;
+  queryRef: QueryRef<PersonModel>;
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              public personDetailsService: PersonDetailsService, private http: HttpClient) { }
+              private apollo: Apollo, public dialog: MatDialog, public personDetailsService: PersonDetailsService) { }
 
   ngOnInit(): void {
-    //this.http.get('http://localhost:3000/getposts').subscribe((personData) => {
-    //this.person = personData[0];
-    console.log(this.person);
+    const id: number = this.personDetailsService.getPersonID();
+    console.log(id);
+    const req = gql`
+    query person($data: personInput!) {
+      person(data: $data) {
+        Person_ID
+        Prefix_Ref
+        First_Name
+        Last_Name
+        DOB
+        Gender_Ref
+        Community_Ref
+        Caste
+        Primary_MailID
+        Secondary_MailID
+        Aadhar_Card
+        PAN_Card
+        Passport_Number
+        Primary_ContactNumber
+        Secondary_ContactNumber
+        Intercom_Number
+        Alias_Name
+        Address_Line1
+        Address_Line2
+        Address_Line3
+        Address_Line4
+        Room_Num
+      }
+    }
+    `;
+    this.queryRef = this.apollo
+      .watchQuery<PersonModel>({
+        query: req,
+        variables: {
+          data: {
+            Person_ID: id
+          }
+        }
+      });
+    this.queryRef
+      .valueChanges.subscribe(((result: any) => {
+        console.log(result.data.person);
+        this.person = JSON.parse(JSON.stringify(result.data['person']));
+        this.person.DOB = '1989-06-05' ;
+        this.person.Community_Ref = 1;
+        this.person.Gender_Ref = 2;
+        this.person.Marital_Status_Ref = 2;
+      }));
+
  // });
 }
-onEdit() {
-  this.isDisabled = false;
-}
-onSubmit() {
-  this.isDisabled = true;
-}
-onNavigate(url) {
-  this.router.navigateByUrl('/person-details/' + url);
+onOpenModel() {
+
+  let dialogRef = this.dialog.open(PersonModelComponent, { data: this.person} );
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.queryRef.refetch();
+    }
+  });
 
 }
 

@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {PersonDetailsService} from './person-details.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-person-details',
@@ -10,8 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PersonDetailsComponent implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              public personDetailsService: PersonDetailsService, private http: HttpClient) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
   }
   ngOnInit(): void {
   }

@@ -2,13 +2,31 @@
 <mat-dialog-content>
   <div class="active-content">
     <form class="form-field-container">
-      <mat-form-field class="form-field">
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Qualification Level</mat-label>
+        <mat-select name="qualification-level" [(ngModel)]="default.qualificationLevel" >
+          <mat-option *ngFor="let q of qualificationLevel; let i = index" [value]="i">{{q}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Degree</mat-label>
+        <mat-select name="degree" [(ngModel)]="default.degree">
+          <mat-option *ngFor="let d of degree; let i = index" [value]="i">{{d}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Branch</mat-label>
+        <mat-select name="branch" [(ngModel)]="default.branch" >
+          <mat-option *ngFor="let b of branch; let i = index" [value]="i">{{b}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field" >
         <mat-label>Institution</mat-label>
-        <input matInput name="institution" [(ngModel)]="data.institution"  >
+        <input matInput name="institution" [(ngModel)]="data.Institution"  >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>University</mat-label>
-        <input matInput name="university" [(ngModel)]="data.university"  >
+        <input matInput name="university" [(ngModel)]="data.University"  >
       </mat-form-field>
       <mat-form-field  class="form-field-dropdown" appearance="fill">
         <mat-label>Start Date</mat-label>
@@ -26,17 +44,23 @@
         </mat-datepicker-toggle>
         <mat-datepicker #pickerEnd startView="multi-year" (yearSelected)="endYearSelected($event, pickerEnd)"></mat-datepicker>
       </mat-form-field>
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Class Obtained</mat-label>
+        <mat-select name="class-obtained" [(ngModel)]="default.classObtained">
+          <mat-option *ngFor="let c of classObtained; let i = index" [value]="i">{{c}}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Thesis Title</mat-label>
-        <input matInput name="thesis-title" [(ngModel)]="data.thesisTitle"  >
+        <input matInput name="thesis-title" [(ngModel)]="data.Thesis_Title"  >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Specilization</mat-label>
-        <input matInput name="specialization" [(ngModel)]="data.specialization"  >
+        <input matInput name="specialization" [(ngModel)]="data.Specialization"  >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Faculty Research</mat-label>
-        <input matInput name="research" [(ngModel)]="data.research"  >
+        <input matInput name="research" [(ngModel)]="data.Faculty_Research"  >
       </mat-form-field><br>
 
     </form>
@@ -45,5 +69,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>Close</button>
-  <button mat-stroked-button color="accent">Confirm</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Confirm</button>
 </mat-dialog-actions>

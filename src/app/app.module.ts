@@ -34,6 +34,8 @@ import { EducationComponent } from './person-details/education/education.compone
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import { EducationModelComponent } from './person-details/education/education-model/education-model.component';
+import { GraphQLModule } from './graphql.module';
+import { PersonModelComponent } from './person-details/person/person-model/person-model.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,9 +44,10 @@ import { EducationModelComponent } from './person-details/education/education-mo
     NavComponent,
     PersonComponent,
     EducationComponent,
-    EducationModelComponent
+    EducationModelComponent,
+    PersonModelComponent
   ],
-  entryComponents: [EducationModelComponent],
+  entryComponents: [EducationModelComponent, PersonModelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -72,10 +75,12 @@ import { EducationModelComponent } from './person-details/education/education-mo
     HttpClientModule,
     PersonDetailsRoutingModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    GraphQLModule
 
   ],
   providers: [MatDatepickerModule, MatNativeDateModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
