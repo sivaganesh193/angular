@@ -1,12 +1,16 @@
 <div class="header">
   <mat-icon>dashboard</mat-icon><span class="title">User Profile</span>
-</div><br>
+</div><br><br>
 <div class="active-content">
     <form class="form-field-container" *ngIf="person!= null">
       <mat-form-field class="form-field">
         <mat-label>Staff ID</mat-label>
         <input matInput name="staff-id" [(ngModel)]="person.Person_ID"  readonly="true">
       </mat-form-field><br>
+      <mat-form-field class="form-field" *ngIf="prefix != null">
+        <mat-label>Prefix</mat-label>
+        <input matInput name="staff-prefix" *ngFor="let p of filterPrefix()" [value]="p.Ref_Name"  readonly="true">
+      </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>First Name</mat-label>
         <input matInput name="staff-first-name" readonly="true" [(ngModel)]="person.First_Name" >
@@ -21,7 +25,8 @@
       </mat-form-field>
       <mat-form-field  class="form-field" appearance="fill">
         <mat-label>Birth Date</mat-label>
-        <input matInput name="staff-dob" readonly="true" [(ngModel)]="person.DOB" >
+        <input matInput name="staff-dob" readonly="true" value="{{person.DOB  | date:'fullDate'}}" >
+
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Primary MailID</mat-label>
@@ -31,18 +36,17 @@
         <mat-label>Secondary MailID</mat-label>
         <input matInput name="staff-secondary-mail" readonly="true" [(ngModel)]="person.Secondary_MailID">
       </mat-form-field>
-      <br>
-      <mat-form-field class="form-field">
+      <mat-form-field class="form-field" *ngIf="gender != null">
         <mat-label>Gender</mat-label>
-        <input matInput name="staff-gender" readonly="true" value="Female">
+        <input matInput name="staff-gender" readonly="true" *ngFor="let g of filterGender()" [value]="g.Ref_Name">
       </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill">
+      <mat-form-field class="form-field" appearance="fill" *ngIf="maritalStatus != null">
         <mat-label>Marital Status</mat-label>
-        <input matInput name="staff-marital-status" readonly="true" value="Married">
+        <input matInput name="staff-marital-status" readonly="true" *ngFor="let m of filterStatus()" [value]="m.Ref_Name">
       </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill">
+      <mat-form-field class="form-field" appearance="fill" *ngIf="community != null">
         <mat-label>Community</mat-label>
-        <input matInput name="staff-community" readonly="true" value="BACKWARD COMMUNITY">
+        <input matInput name="staff-community" readonly="true" *ngFor="let m of filterCommunity()" [value]="m.Ref_Name">
       </mat-form-field>
 
       <mat-form-field class="form-field">

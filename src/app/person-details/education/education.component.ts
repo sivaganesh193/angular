@@ -13,6 +13,10 @@ import { PersonDetailsService } from '../person-details.service';
 export class EducationComponent implements OnInit {
   qualifications: EducationModel[];
   queryRef: QueryRef<EducationModel[]>;
+  degree;
+  branch;
+  classObtained;
+  qualificationLevel;
 
   constructor(public dialog: MatDialog,  private apollo: Apollo, public personDetailsService: PersonDetailsService) {  }
 
@@ -23,6 +27,10 @@ export class EducationComponent implements OnInit {
       personQualifications(data: $data) {
         Qualification_ID
         Person_ID
+        Branch_Ref
+        Degree_Ref
+        Class_Obtained_Ref
+        Qualification_Level_Ref
         Institution
         University
         Start_Date
@@ -43,15 +51,32 @@ export class EducationComponent implements OnInit {
         }
       });
     this.queryRef.valueChanges.subscribe(result => {
-        console.log(result.data['personQualifications']);
         this.qualifications = JSON.parse(JSON.stringify(result.data['personQualifications']));
+        this.personDetailsService.getDropDown('Degree').subscribe(result => {
+          this.degree = result;
+        });
+        this.personDetailsService.getDropDown('Branch').subscribe(result => {
+          this.branch = result;
+        });
+        this.personDetailsService.getDropDown('Class_Obtained').subscribe(result => {
+          this.classObtained = result;
+        });
+        this.personDetailsService.getDropDown('Qualification_Level').subscribe(result => {
+          this.qualificationLevel = result;
+        });
       });
 
   }
   openDialog(id) {
     const qualification = this.qualifications.filter((q) => q.Qualification_ID === id);
     console.log(qualification);
-    let dialogUpdateRef = this.dialog.open(EducationModelComponent, {data: qualification[0]});
+    let dialogUpdateRef = this.dialog.open(EducationModelComponent, {data: {
+      qualification : qualification[0],
+      degree: this.degree,
+      branch: this.branch,
+      classObtained: this.classObtained,
+      qualificationLevel: this.qualificationLevel
+    }  });
     dialogUpdateRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(result);
@@ -79,7 +104,11 @@ export class EducationComponent implements OnInit {
         University: result.University,
         Thesis_Title: result.Thesis_Title,
         Specialization: result.Specialization,
-        Faculty_Research: result.Faculty_Research
+        Faculty_Research: result.Faculty_Research,
+        Branch_Ref: result.Branch_Ref,
+        Degree_Ref: result.Degree_Ref,
+        Class_Obtained_Ref: result.Class_Obtained_Ref,
+        Qualification_Level_Ref: result.Qualification_Level_Ref
         }
       }
     }).subscribe(({ data }) => {
@@ -89,7 +118,12 @@ export class EducationComponent implements OnInit {
     });
   }
   createDialog(){
-    let dialogCreateRef = this.dialog.open(EducationModelComponent);
+    let dialogCreateRef = this.dialog.open(EducationModelComponent, {data: {
+      degree: this.degree,
+      branch: this.branch,
+      classObtained: this.classObtained,
+      qualificationLevel: this.qualificationLevel
+    }  });
     dialogCreateRef.afterClosed().subscribe(result => {
       if (result) {
         const req = gql `
@@ -111,9 +145,15 @@ export class EducationComponent implements OnInit {
         Person_ID: result.Person_ID,
         Institution: result.Institution,
         University: result.University,
+        Start_Date: result.Start_Date,
+        End_Date: result.End_Date,
         Thesis_Title: result.Thesis_Title,
         Specialization: result.Specialization,
-        Faculty_Research: result.Faculty_Research
+        Faculty_Research: result.Faculty_Research,
+        Branch_Ref: result.Branch_Ref,
+        Degree_Ref: result.Degree_Ref,
+        Class_Obtained_Ref: result.Class_Obtained_Ref,
+        Qualification_Level_Ref: result.Qualification_Level_Ref
         }
       }
     }).subscribe(({ data }) => {
@@ -123,5 +163,17 @@ export class EducationComponent implements OnInit {
       }
     });
 
+  }
+  filterQualificationLevel(ref) {
+    return this.qualificationLevel.filter(l => l.Ref_Code === ref);
+  }
+  filterDegree(ref) {
+    return this.degree.filter(l => l.Ref_Code === ref);
+  }
+  filterBranch(ref) {
+    return this.branch.filter(l => l.Ref_Code === ref);
+  }
+  filterClassObtained(ref) {
+    return this.classObtained.filter(l => l.Ref_Code === ref);
   }
 }

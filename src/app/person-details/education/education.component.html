@@ -1,7 +1,7 @@
 <div class="header">
   <mat-icon>dashboard</mat-icon><span class="title">Educational Qualification</span>
-</div><br>
-<div class="active-content">
+</div><br><br><br>
+<div class="active-content" *ngIf="qualifications != null">
   <mat-form-field class="form-field">
     <mat-label>Staff ID</mat-label>
     <input matInput value="123"  readonly="true">
@@ -15,18 +15,23 @@
       <mat-label>University</mat-label>
       <input matInput [value]="qualification.University" readonly="true" >
     </mat-form-field>
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" *ngIf="qualificationLevel != null">
       <mat-label>Qualification Level</mat-label>
-      <input matInput value="POST GRADUATE" readonly="true" >
+      <input matInput
+      *ngFor="let d of filterQualificationLevel(qualification.Qualification_Level_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
     </mat-form-field>
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" *ngIf="degree != null">
       <mat-label>Degree</mat-label>
-      <input matInput value="B.E." readonly="true" >
+      <input matInput
+      *ngFor="let d of filterDegree(qualification.Degree_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
     </mat-form-field>
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" *ngIf="branch != null">
       <mat-label>Branch</mat-label>
-      <input matInput value="COMPUTER SCIENCE AND ENGINEERING" readonly="true" >
+      <input matInput
+      *ngFor="let d of filterBranch(qualification.Branch_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
     </mat-form-field>
+
+
     <mat-form-field  class="form-field" appearance="fill">
       <mat-label>Start Date</mat-label>
       <input matInput [value]="qualification.Start_Date" readonly="true" >
@@ -35,10 +40,12 @@
       <mat-label>End Date</mat-label>
       <input matInput [value]="qualification.End_Date" readonly="true" >
     </mat-form-field>
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" *ngIf="classObtained != null">
       <mat-label>Class Obtained</mat-label>
-      <input matInput value="First Class" readonly="true" >
+      <input matInput
+      *ngFor="let d of filterClassObtained(qualification.Class_Obtained_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
     </mat-form-field>
+
     <mat-form-field class="form-field">
       <mat-label>Thesis Title</mat-label>
       <input matInput [value]="qualification.Thesis_Title" readonly="true"  >

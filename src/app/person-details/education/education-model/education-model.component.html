@@ -4,20 +4,20 @@
     <form class="form-field-container">
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Qualification Level</mat-label>
-        <mat-select name="qualification-level" [(ngModel)]="default.qualificationLevel" >
-          <mat-option *ngFor="let q of qualificationLevel; let i = index" [value]="i">{{q}}</mat-option>
+        <mat-select name="qualification-level" [(ngModel)]="data.Qualification_Level_Ref" >
+          <mat-option *ngFor="let q of input.qualificationLevel" [value]="q.Ref_Code">{{q.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Degree</mat-label>
-        <mat-select name="degree" [(ngModel)]="default.degree">
-          <mat-option *ngFor="let d of degree; let i = index" [value]="i">{{d}}</mat-option>
+        <mat-select name="degree" [(ngModel)]="data.Degree_Ref">
+          <mat-option *ngFor="let d of input.degree" [value]="d.Ref_Code">{{d.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Branch</mat-label>
-        <mat-select name="branch" [(ngModel)]="default.branch" >
-          <mat-option *ngFor="let b of branch; let i = index" [value]="i">{{b}}</mat-option>
+        <mat-select name="branch" [(ngModel)]="data.Branch_Ref" >
+          <mat-option *ngFor="let b of input.branch" [value]="b.Ref_Code">{{b.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field" >
@@ -46,8 +46,8 @@
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Class Obtained</mat-label>
-        <mat-select name="class-obtained" [(ngModel)]="default.classObtained">
-          <mat-option *ngFor="let c of classObtained; let i = index" [value]="i">{{c}}</mat-option>
+        <mat-select name="class-obtained" [(ngModel)]="data.Class_Obtained_Ref">
+          <mat-option *ngFor="let c of input.classObtained" [value]="c.Ref_Code">{{c.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field">

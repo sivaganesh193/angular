@@ -11,5 +11,6 @@ export class PersonDetailsComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
   }
   ngOnInit(): void {
+    console.log(localStorage.getItem('token'));
   }
 }

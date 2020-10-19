@@ -8,4 +8,12 @@ export interface EducationModel {
   Faculty_Research: string;
   Start_Date: number;
   End_Date: number;
+  Qualification_Level_Ref: number;
+  Qualification_Level: string;
+  Degree_Ref: number;
+  Degree: string;
+  Branch_Ref: number;
+  Branch: string;
+  Class_Obtained_Ref: number;
+  Class_Obtained: string;
 }

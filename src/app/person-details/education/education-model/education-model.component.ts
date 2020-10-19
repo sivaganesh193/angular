@@ -25,24 +25,6 @@ export class CustomDateAdapter extends NativeDateAdapter {
   ]
 })
 export class EducationModelComponent implements OnInit {
-  qualificationLevel = ['UNDER GRADUATE', 'POST GRADUATE', 'DOCTRATE'];
-  degree = ['B.C.A', 'B.E.', 'B.Sc.', 'B.Tech.', 'M.C.A', 'M.E', 'M.Tech', 'M.Sc.',
-            'M.S', 'Ph.D.', 'Postdoctoral Research'];
-  branch = ['COMPUTER SCIENCE AND ENGINEERING', 'COMPUTER SCIENCE'
-  , 'ELECTRICAL AND ELECTRONICS ENGINEERING',
-   'ELECTRONICS AND COMMUNICATION ENGINEERING', 'ELECTRONICS AND INSTRUMENTATION ENGINEERING', 'INFORMATION TECHNOLOGY', 'OTHER' ];
-  classObtained = ['Honors',
-    'First Class with Distinction',
-    'First Class',
-    'Second Class',
-    'Others'
-    ];
-    default = {
-      qualificationLevel: null,
-      degree: null,
-      branch: null,
-      classObtained: null
-    };
   date = new FormControl(moment());
   data: EducationModel = {
     Qualification_ID: 0,
@@ -53,7 +35,15 @@ export class EducationModelComponent implements OnInit {
     Faculty_Research: '',
     Start_Date: 0,
     End_Date: 0,
-    Person_ID: 123
+    Person_ID: 123,
+    Qualification_Level_Ref: 0,
+    Qualification_Level: '',
+    Degree_Ref: 0,
+    Degree: '',
+    Branch_Ref: 0,
+    Branch: '',
+    Class_Obtained_Ref: 0,
+    Class_Obtained: ''
   };
   // tslint:disable-next-line: max-line-length
   constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<EducationModelComponent>) { }
@@ -73,16 +63,10 @@ export class EducationModelComponent implements OnInit {
     picker.close();
   }
   ngOnInit(): void {
-    if (this.input) {
-      this.data = JSON.parse(JSON.stringify(this.input));
+    if (this.input.qualification) {
+      this.data = JSON.parse(JSON.stringify(this.input.qualification));
       this.startYear = this.data.Start_Date + '-01-01T18:30:00.000Z';
       this.endYear = this.data.End_Date + '-01-01T18:30:00.000Z';
-      this.default = {
-        qualificationLevel: 2,
-        degree: 2,
-        branch: 0,
-        classObtained: 3
-      };
     }
     else {
 

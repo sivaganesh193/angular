@@ -4,7 +4,7 @@ export interface PersonModel {
   First_Name: string;
   Last_Name: string;
   Gender_Ref: number;
-  DOB: string;
+  DOB: Date;
   Community_Ref: number;
   Caste: string;
   Primary_MailID: string;
@@ -22,4 +22,8 @@ export interface PersonModel {
   Address_Line4: string;
   Marital_Status_Ref: number;
   Room_Num: string;
+  Gender: string;
+  Community: string;
+  Marital_Status: string;
+  Prefix: string;
 }
