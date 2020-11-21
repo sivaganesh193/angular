@@ -1,69 +1,47 @@
-<div class="header">
-  <mat-icon>dashboard</mat-icon><span class="title">Educational Qualification</span>
-</div><br><br><br>
-<div class="active-content" *ngIf="qualifications != null">
-  <mat-form-field class="form-field">
-    <mat-label>Staff ID</mat-label>
-    <input matInput value="123"  readonly="true">
-  </mat-form-field> <button mat-raised-button class="add-btn" color="primary" (click)="createDialog()" >Add Qualification</button> <br>
-  <form class="form-field-container" *ngFor="let qualification of qualifications">
-    <mat-form-field class="form-field">
-      <mat-label>Institution</mat-label>
-      <input matInput [value]="qualification.Institution" readonly="true" >
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>University</mat-label>
-      <input matInput [value]="qualification.University" readonly="true" >
-    </mat-form-field>
-    <mat-form-field class="form-field" *ngIf="qualificationLevel != null">
-      <mat-label>Qualification Level</mat-label>
-      <input matInput
-      *ngFor="let d of filterQualificationLevel(qualification.Qualification_Level_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
-    </mat-form-field>
-    <mat-form-field class="form-field" *ngIf="degree != null">
-      <mat-label>Degree</mat-label>
-      <input matInput
-      *ngFor="let d of filterDegree(qualification.Degree_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
-    </mat-form-field>
-    <mat-form-field class="form-field" *ngIf="branch != null">
-      <mat-label>Branch</mat-label>
-      <input matInput
-      *ngFor="let d of filterBranch(qualification.Branch_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
-    </mat-form-field>
+<div class="container">
+  <div class="main" *ngIf="qualifications!=null">
+      <div class="education-section">
+          <h3 class="section-title">Educational Qualifications</h3>
+          <span class="note"><b>Note : </b> The staff can update/remove their educational qualifiactions if necessary.</span>
+          <div *ngFor="let q of qualifications">
+          <div class="horizontal-line-break"></div>
+          <div class="education">
+              <h3 class="degree-branch">
+                  <div class="degree-title">
+                      <span *ngIf="degree!= null">{{filterDegree(q.Degree_Ref).Ref_Name}}</span>
+                      <span> in</span>
+                      <span *ngIf="branch!=null"> {{filterBranch(q.Branch_Ref).Ref_Name}}</span>
+                  </div>
+                  <span class="edit-educ" (click)="openDialog(q.Qualification_ID)" title="Edit"></span>
+                  <span class="delete-educ" (click)="deleteDialog(q.Qualification_ID)" title="Remove"></span>
+              </h3>
+              <span class="degree-college">{{q.Institution}}</span>
+              <span class="degree-college">{{q.University}}</span>
+              <span class="degree-college" *ngIf="qualificationLevel != null">{{filterQualificationLevel(q.Qualification_Level_Ref).ref_Name}}</span>
+              <span class="degree-time">{{q.Start_Date}}-{{q.End_Date}}</span>
+              <br>
+              <div class="text-wrap" *ngIf="classObtained!=null">
+                  <span class="label">Class Obtained</span>
+                  <p>{{filterClassObtained(q.Class_Obtained_Ref).Ref_Name}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Thesis Title</span>
+                  <p>{{q.Thesis_Title}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Specialization</span>
+                  <p>{{q.Specialization}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Faculty Research</span>
+                  <p>{{q.Faculty_Research}}</p>
+              </div>
+          </div>
+        </div>
 
-
-    <mat-form-field  class="form-field" appearance="fill">
-      <mat-label>Start Date</mat-label>
-      <input matInput [value]="qualification.Start_Date" readonly="true" >
-    </mat-form-field>
-    <mat-form-field  class="form-field" appearance="fill">
-      <mat-label>End Date</mat-label>
-      <input matInput [value]="qualification.End_Date" readonly="true" >
-    </mat-form-field>
-    <mat-form-field class="form-field" *ngIf="classObtained != null">
-      <mat-label>Class Obtained</mat-label>
-      <input matInput
-      *ngFor="let d of filterClassObtained(qualification.Class_Obtained_Ref)"  name="staff-degree" [value]="d.Ref_Name" readonly="true">
-    </mat-form-field>
-
-    <mat-form-field class="form-field">
-      <mat-label>Thesis Title</mat-label>
-      <input matInput [value]="qualification.Thesis_Title" readonly="true"  >
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Specilization</mat-label>
-      <input matInput [value]="qualification.Specialization"  readonly="true" >
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Faculty Research</mat-label>
-      <input matInput [value]="qualification.Faculty_Research" readonly="true"  >
-    </mat-form-field><br>
-    <br>
-    <div class="form-field">
-    <button mat-raised-button color="accent" (click)="openDialog(qualification.Qualification_ID)">Update</button>
-    </div><br>
-    <mat-divider></mat-divider>
-
-  </form>
-
+          <br>
+          <div class="button" (click)="createDialog()">Add Qualification</div>
+      </div>
+  </div>
 </div>
+

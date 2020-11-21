@@ -7,7 +7,7 @@ import { PersonModel } from '../person.model';
 @Component({
   selector: 'app-person-model',
   templateUrl: './person-model.component.html',
-  styleUrls: ['./person-model.component.scss']
+  styleUrls: ['./person-model.component.scss'],
 })
 export class PersonModelComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private apollo: Apollo,

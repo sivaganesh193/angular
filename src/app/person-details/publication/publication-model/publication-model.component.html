@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>Publications</h2>
+<mat-dialog-content>
+  <div class="active-content">
+    <form class="form-field-container">
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Publication Type</mat-label>
+        <mat-select name="publication-type" [(ngModel)]="data.Publication_Type_Ref" >
+          <mat-option *ngFor="let q of input.publicationType" [value]="q.Ref_Code">{{q.Ref_Name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field-dropdown" appearance="fill">
+        <mat-label>Level</mat-label>
+        <mat-select name="level" [(ngModel)]="data.Level_Ref">
+          <mat-option *ngFor="let d of input.level" [value]="d.Ref_Code">{{d.Ref_Name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" >
+        <mat-label>Paper Title</mat-label>
+        <input matInput name="paper-title" [(ngModel)]="data.Paper_Title"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>First Author</mat-label>
+        <input matInput name="first-author" [(ngModel)]="data.First_Author"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Second Author</mat-label>
+        <input matInput name="second-author" [(ngModel)]="data.Second_Author"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Other Authors</mat-label>
+        <input matInput name="other-authors" [(ngModel)]="data.Other_Authors"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Journal Name</mat-label>
+        <input matInput name="journal-name" [(ngModel)]="data.Journal_Name"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Volume</mat-label>
+        <input matInput type="number" name="volume" [(ngModel)]="data.Volume"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Issue</mat-label>
+        <input matInput type="number" name="issue" [(ngModel)]="data.Issue"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>DOI</mat-label>
+        <input matInput type="text" name="DOI" [(ngModel)]="data.DOI"  >
+      </mat-form-field>
+      <mat-form-field  class="form-field-dropdown" appearance="fill">
+        <mat-label>Year of Publication</mat-label>
+        <input matInput [matDatepicker]="pickerStart" name="publishYear" [(ngModel)]="publishYear">
+        <mat-datepicker-toggle matSuffix [for]="pickerStart">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #pickerStart startView="multi-year" (yearSelected)="yearSelected($event, pickerStart)"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Start Page No</mat-label>
+        <input matInput type="number" name="start-page-no" [(ngModel)]="data.Start_Page_No"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>End Page No</mat-label>
+        <input matInput type="number" name="end-page-no" [(ngModel)]="data.End_Page_No"  >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Publisher</mat-label>
+        <input matInput name="publisher" [(ngModel)]="data.Publisher"  >
+      </mat-form-field>
+      <br>
+
+    </form>
+
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Confirm</button>
+</mat-dialog-actions>

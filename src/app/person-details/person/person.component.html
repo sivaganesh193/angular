@@ -1,106 +1,179 @@
-<div class="header">
-  <mat-icon>dashboard</mat-icon><span class="title">User Profile</span>
-</div><br><br>
-<div class="active-content">
-    <form class="form-field-container" *ngIf="person!= null">
-      <mat-form-field class="form-field">
-        <mat-label>Staff ID</mat-label>
-        <input matInput name="staff-id" [(ngModel)]="person.Person_ID"  readonly="true">
-      </mat-form-field><br>
-      <mat-form-field class="form-field" *ngIf="prefix != null">
-        <mat-label>Prefix</mat-label>
-        <input matInput name="staff-prefix" *ngFor="let p of filterPrefix()" [value]="p.Ref_Name"  readonly="true">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>First Name</mat-label>
-        <input matInput name="staff-first-name" readonly="true" [(ngModel)]="person.First_Name" >
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Last Name</mat-label>
-        <input matInput name="staff-last-name" readonly="true" [(ngModel)]="person.Last_Name">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Alias Name</mat-label>
-        <input matInput name="staff-alias" readonly="true" [(ngModel)]="person.Alias_Name">
-      </mat-form-field>
-      <mat-form-field  class="form-field" appearance="fill">
-        <mat-label>Birth Date</mat-label>
-        <input matInput name="staff-dob" readonly="true" value="{{person.DOB  | date:'fullDate'}}" >
-
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Primary MailID</mat-label>
-        <input matInput name="staff-primary-mail" readonly="true" [(ngModel)]="person.Primary_MailID">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Secondary MailID</mat-label>
-        <input matInput name="staff-secondary-mail" readonly="true" [(ngModel)]="person.Secondary_MailID">
-      </mat-form-field>
-      <mat-form-field class="form-field" *ngIf="gender != null">
-        <mat-label>Gender</mat-label>
-        <input matInput name="staff-gender" readonly="true" *ngFor="let g of filterGender()" [value]="g.Ref_Name">
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill" *ngIf="maritalStatus != null">
-        <mat-label>Marital Status</mat-label>
-        <input matInput name="staff-marital-status" readonly="true" *ngFor="let m of filterStatus()" [value]="m.Ref_Name">
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill" *ngIf="community != null">
-        <mat-label>Community</mat-label>
-        <input matInput name="staff-community" readonly="true" *ngFor="let m of filterCommunity()" [value]="m.Ref_Name">
-      </mat-form-field>
-
-      <mat-form-field class="form-field">
-        <mat-label>Caste</mat-label>
-        <input matInput name="staff-caste" readonly="true" [(ngModel)]="person.Caste">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Aadhar Card</mat-label>
-        <input matInput name="staff-aadhar-no" readonly="true" [(ngModel)]="person.Aadhar_Card">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Passport Number</mat-label>
-        <input matInput name="staff-passport-number" readonly="true" [(ngModel)]="person.Passport_Number">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Intercom Number</mat-label>
-        <input matInput name="staff-intercom-number" readonly="true" [(ngModel)]="person.Intercom_Number">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Primary Contact</mat-label>
-        <input matInput name="staff-primary-contact" readonly="true" [(ngModel)]="person.Primary_ContactNumber">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Secondary Contact</mat-label>
-        <input matInput name="staff-secondary-contact" readonly="true" [(ngModel)]="person.Secondary_ContactNumber">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Door No, Street Name</mat-label>
-        <input matInput name="staff-address-1" readonly="true" [(ngModel)]="person.Address_Line1">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Area</mat-label>
-        <input matInput name="staff-address-2" readonly="true" [(ngModel)]="person.Address_Line2" >
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>City</mat-label>
-        <input matInput name="staff-address-3" readonly="true" [(ngModel)]="person.Address_Line3">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>ZipCode</mat-label>
-        <input matInput name="staff-address-4" readonly="true" [(ngModel)]="person.Address_Line4">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>PAN Card</mat-label>
-        <input matInput name="staf-pan-card" readonly="true" [(ngModel)]="person.PAN_Card">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Room Number</mat-label>
-        <input matInput name="staff-room-no" readonly="true" [(ngModel)]="person.Room_Num">
-      </mat-form-field>
+<div class="container">
+  <div class="main" *ngIf="person!=null">
+      <div class="profile-section" >
+          <div class="profile-left">
+              <div class="image-wrap">
+                  <img src="../../../assets/back.jpg" class="profile-photo">
+                  <span class="edit-photo" ></span>
+              </div>
+              <h2 class="staff-name" *ngIf="prefix != null">{{filterPrefix().Ref_Name}} {{person.First_Name}}</h2>
+              <span class="profession">Designation</span>
+              <span class="college">Department of Computer Technology</span>
+              <span class="college">Madras Institute of Technology</span>
+          </div>
+          <div class="vertical-line-break"></div>
+          <div class="profile-right">
+              <h3 class="section-title">
+                  <span>Profile</span>
+                  <span class="edit-icon" (click)="onOpenModel()">Edit Profile</span>
+              </h3>
+              <div class="text-wrap">
+                  <span class="label">Staff ID</span>
+                  <p>{{person.Person_ID}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Name</span>
+                  <p>{{person.First_Name}} {{person.Last_Name}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Intercom Number</span>
+                  <p>{{person.Intercom_Number}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Email Address</span>
+                  <p><a>{{person.Primary_MailID}}</a></p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Contact</span>
+                  <p><a>{{person.Primary_ContactNumber}}</a></p>
+              </div>
+          </div>
+      </div>
       <br>
+      <div class="personal-section">
+          <h3 class="section-title">Personal Details</h3>
+          <div class="input-field">
+            <div class="text-wrap" *ngIf="prefix != null">
+              <span class="label">Prefix</span>
+              <p>{{filterPrefix().Ref_Name}}</p>
+          </div>
+          <div class="text-wrap">
+            <span class="label">First Name</span>
+            <p>{{person.First_Name}}</p>
+        </div>
+          </div>
+          <div class="input-field">
 
-      <button mat-raised-button color="accent"  (click)="onOpenModel()">Update Profile</button>
-    </form>
+              <div class="text-wrap">
+                  <span class="label">Last Name</span>
+                  <p>{{person.Last_Name}}</p>
+              </div>
+              <div class="text-wrap">
+                <span class="label">Alias Name</span>
+                <p>{{person.Alias_Name}}</p>
+            </div>
+          </div>
+          <div class="input-field">
 
+              <div class="text-wrap">
+                  <span class="label">Date of Birth</span>
+                  <p>{{person.DOB  | date:'fullDate'}}</p>
+              </div>
+              <div class="text-wrap" *ngIf="gender != null">
+                <span class="label">Gender</span>
+                <p>{{filterGender().Ref_Name}}</p>
+            </div>
+          </div>
+          <div class="input-field">
 
+              <div class="text-wrap" *ngIf="maritalStatus != null">
+                  <span class="label">Martial Status</span>
+                  <p>{{filterStatus().Ref_Name}}</p>
+              </div>
+              <div class="text-wrap" *ngIf="community != null">
+                <span class="label">Community</span>
+                <p>{{filterCommunity().Ref_Name}}</p>
+            </div>
+          </div>
+          <div class="input-field">
+
+            <div class="text-wrap">
+                <span class="label">Caste</span>
+                <p>Nagaraj 308</p>
+            </div>
+            <div class="text-wrap">
+              <span class="label">Aadhar Card Number</span>
+              <p>{{person.Aadhar_Card}}</p>
+          </div>
+        </div>
+        <div class="input-field">
+
+          <div class="text-wrap">
+              <span class="label">Passport Number</span>
+              <p>{{person.Passport_Number}}</p>
+          </div>
+          <div class="text-wrap">
+            <span class="label">PAN Card</span>
+            <p>{{person.PAN_Card}}</p>
+        </div>
+      </div>
+          <div class="horizontal-line-break"></div>
+          <h3 class="section-title">Contact Details</h3>
+          <div class="input-field">
+              <div class="text-wrap">
+                  <span class="label">Primary Email</span>
+                  <p>{{person.Primary_MailID}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Secondary Email</span>
+                  <p>{{person.Secondary_MailID}}</p>
+              </div>
+          </div>
+          <div class="input-field">
+              <div class="text-wrap">
+                  <span class="label">Primary Contact</span>
+                  <p>{{person.Primary_ContactNumber}}</p>
+              </div>
+              <div class="text-wrap">
+                  <span class="label">Secondary Contact</span>
+                  <p>{{person.Secondary_ContactNumber}}</p>
+              </div>
+          </div>
+          <div class="input-field">
+            <div class="text-wrap">
+              <span class="label">Intercom Number</span>
+              <p>{{person.Intercom_Number}}</p>
+          </div>
+          </div>
+
+          <div class="horizontal-line-break"></div>
+          <h3 class="section-title">Residential Details</h3>
+          <div class="input-field">
+              <div class="text-wrap">
+                  <span class="label">Door Number / Street Name</span>
+                  <p>{{person.Address_Line1}}</p>
+              </div>
+              <div class="text-wrap">
+                <span class="label">Town / Area</span>
+                <p>{{person.Address_Line2}}</p>
+            </div>
+          </div>
+          <div class="input-field">
+
+              <div class="text-wrap">
+                  <span class="label">City</span>
+                  <p>{{person.Address_Line3}}</p>
+              </div>
+              <div class="text-wrap">
+                <span class="label">Pin Code</span>
+                <p>{{person.Address_Line4}}</p>
+            </div>
+          </div>
+          <div class="input-field">
+
+              <div class="text-wrap">
+                <span class="label">Room Number</span>
+                <p>{{person.Room_Num}}</p>
+            </div>
+          </div>
+
+      </div>
+      <br>
   </div>
+</div>
+
+
+
+
+
+

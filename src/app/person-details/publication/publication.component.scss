@@ -269,3 +269,61 @@
         width: 100%;
     }
 }
+
+
+.publication-section{
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em 2em;
+  background-color: white;
+  border-radius: 0.75em;
+  border: 1px solid gainsboro;
+}
+.publication{
+  margin-bottom: 0.5em;
+}
+.publication-section .degree-title{
+  width: 75%;
+}
+.pub-title{
+  color: black;
+}
+.pub-title:hover{
+  color: #1369b9;
+}
+.authors{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #61686e;
+  margin-top: 0.1em;
+}
+.dot,
+.divider{
+  width: 0.25em;
+  height: 0.25em;
+  background-color: grey;
+  display: block;
+  border-radius: 50%;
+  margin: 0 0.5em;
+}
+.divider{
+  width: 1px;
+  height: 1em;
+  border-radius: unset;
+}
+.pub-type{
+  color: #1373cc;
+  margin: 0.25em 0;
+  font-weight: 600;
+}
+.pub-details{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.doi-pages{
+  margin-top: 0.2em;
+  color: gray;
+}

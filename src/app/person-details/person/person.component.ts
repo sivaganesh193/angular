@@ -7,10 +7,12 @@ import { PersonModelComponent } from './person-model/person-model.component';
 import { PersonModel } from './person.model';
 import {PersonDetailsService} from '../person-details.service';
 import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
-  styleUrls: ['./person.component.scss', '../person-details.component.scss']
+  styleUrls: ['./person.component.scss', '../person-details.component.scss'],
+
 })
 
 export class PersonComponent implements OnInit {
@@ -97,6 +99,8 @@ onOpenModel() {
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
       console.log(result.DOB);
+      const d = new Date(result.DOB);
+      const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
       const req = gql `
     mutation updatePerson($data: updatePersonInput!) {
       updatePerson(data: $data) {
@@ -123,7 +127,7 @@ onOpenModel() {
           Secondary_MailID: result.Secondary_MailID,
           Aadhar_Card: result.Aadhar_Card,
           Passport_Number: result.Passport_Number,
-         DOB: result.DOB ,
+         DOB: date,
           Primary_ContactNumber: result.Primary_ContactNumber,
           Secondary_ContactNumber: result.Secondary_ContactNumber,
           Intercom_Number: result.Intercom_Number,
@@ -147,15 +151,15 @@ onOpenModel() {
 }
 
 filterPrefix() {
-  return this.prefix.filter(l => l.Ref_Code === this.person.Prefix_Ref);
+  return this.prefix.filter(l => l.Ref_Code === this.person.Prefix_Ref)[0];
 }
 filterGender() {
-  return this.gender.filter(l => l.Ref_Code === this.person.Gender_Ref);
+  return this.gender.filter(l => l.Ref_Code === this.person.Gender_Ref)[0];
 }
 filterStatus() {
-  return this.maritalStatus.filter(l => l.Ref_Code === this.person.Marital_Status_Ref);
+  return this.maritalStatus.filter(l => l.Ref_Code === this.person.Marital_Status_Ref)[0];
 }
 filterCommunity() {
-  return this.community.filter(l => l.Ref_Code === this.person.Community_Ref);
+  return this.community.filter(l => l.Ref_Code === this.person.Community_Ref)[0];
 }
 }

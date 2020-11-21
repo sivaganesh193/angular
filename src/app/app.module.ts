@@ -36,6 +36,12 @@ import {MatDividerModule} from '@angular/material/divider';
 import { EducationModelComponent } from './person-details/education/education-model/education-model.component';
 import { GraphQLModule } from './graphql.module';
 import { PersonModelComponent } from './person-details/person/person-model/person-model.component';
+import { PublicationComponent } from './person-details/publication/publication.component';
+import { PublicationModelComponent } from './person-details/publication/publication-model/publication-model.component';
+import { AlertboxComponent } from './alertbox/alertbox.component';
+import { FilterPipe } from './person-details/filter.pipe';
+import { ExperienceComponent } from './person-details/experience/experience.component';
+import { ExperienceModelComponent } from './person-details/experience/experience-model/experience-model.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,9 +51,15 @@ import { PersonModelComponent } from './person-details/person/person-model/perso
     PersonComponent,
     EducationComponent,
     EducationModelComponent,
-    PersonModelComponent
+    PersonModelComponent,
+    PublicationComponent,
+    PublicationModelComponent,
+    AlertboxComponent,
+    FilterPipe,
+    ExperienceComponent,
+    ExperienceModelComponent
   ],
-  entryComponents: [EducationModelComponent, PersonModelComponent],
+  entryComponents: [EducationModelComponent, PersonModelComponent, PublicationModelComponent, AlertboxComponent, ExperienceModelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

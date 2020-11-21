@@ -1,16 +1,19 @@
 <h2 mat-dialog-title>Person Details</h2>
 <mat-dialog-content>
   <form class="form-field-container" *ngIf="data.person!= null">
+  
     <mat-form-field class="form-field-dropdown" appearance="fill">
-      <mat-label>Prefix</mat-label>
-      <mat-select name="prefix"  [(ngModel)]="data.person.Prefix_Ref">
-        <mat-option *ngFor="let m of data.prefix" [value]="m.Ref_Code">{{m.Ref_Name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>First Name</mat-label>
-      <input matInput name="staff-first-name"   [(ngModel)]="data.person.First_Name" >
-    </mat-form-field>
+        <mat-label>Prefix</mat-label>
+        <mat-select name="prefix"  [(ngModel)]="data.person.Prefix_Ref">
+          <mat-option *ngFor="let m of data.prefix" [value]="m.Ref_Code">{{m.Ref_Name}}</mat-option>
+        </mat-select>
+      </mat-form-field> 
+    
+      <mat-form-field class="form-field">
+        <mat-label>First Name</mat-label>
+        <input matInput name="staff-first-name"   [(ngModel)]="data.person.First_Name" >
+      </mat-form-field>
+  
     <mat-form-field class="form-field">
       <mat-label>Last Name</mat-label>
       <input matInput name="staff-last-name"   [(ngModel)]="data.person.Last_Name">

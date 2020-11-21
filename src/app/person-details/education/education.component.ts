@@ -5,6 +5,7 @@ import {Apollo, QueryRef} from 'apollo-angular';
 import gql from 'graphql-tag';
 import {EducationModel} from './education.model';
 import { PersonDetailsService } from '../person-details.service';
+import {AlertboxComponent} from '../../alertbox/alertbox.component';
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
@@ -164,16 +165,42 @@ export class EducationComponent implements OnInit {
     });
 
   }
+  deleteDialog(id) {
+    let dialogDeleteRef = this.dialog.open(AlertboxComponent);
+    dialogDeleteRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(result);
+        const req = gql `
+        mutation deletePersonQualification($data: Qualification_InputQuery!) {
+          deletePersonQualification(data: $data) {
+            Person_ID
+          }
+        }
+        `;
+        this.apollo
+    .mutate({
+      mutation: req,
+      variables: {
+        data: {
+          Qualification_ID: id
+        }
+      }}).subscribe(({ data }) => {
+      this.queryRef.refetch();
+    });
+
+      }
+    })
+  }
   filterQualificationLevel(ref) {
-    return this.qualificationLevel.filter(l => l.Ref_Code === ref);
+    return this.qualificationLevel.filter(l => l.Ref_Code === ref)[0];
   }
   filterDegree(ref) {
-    return this.degree.filter(l => l.Ref_Code === ref);
+    return this.degree.filter(l => l.Ref_Code === ref)[0];
   }
   filterBranch(ref) {
-    return this.branch.filter(l => l.Ref_Code === ref);
+    return this.branch.filter(l => l.Ref_Code === ref)[0];
   }
   filterClassObtained(ref) {
-    return this.classObtained.filter(l => l.Ref_Code === ref);
+    return this.classObtained.filter(l => l.Ref_Code === ref)[0];
   }
 }
