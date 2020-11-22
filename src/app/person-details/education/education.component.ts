@@ -53,19 +53,20 @@ export class EducationComponent implements OnInit {
       });
     this.queryRef.valueChanges.subscribe(result => {
         this.qualifications = JSON.parse(JSON.stringify(result.data['personQualifications']));
-        this.personDetailsService.getDropDown('Degree').subscribe(result => {
-          this.degree = result;
-        });
-        this.personDetailsService.getDropDown('Branch').subscribe(result => {
-          this.branch = result;
-        });
-        this.personDetailsService.getDropDown('Class_Obtained').subscribe(result => {
-          this.classObtained = result;
-        });
-        this.personDetailsService.getDropDown('Qualification_Level').subscribe(result => {
-          this.qualificationLevel = result;
-        });
+
       });
+    this.personDetailsService.getDropDown('Degree').subscribe(result => {
+      this.degree = result;
+    });
+    this.personDetailsService.getDropDown('Branch').subscribe(result => {
+      this.branch = result;
+    });
+    this.personDetailsService.getDropDown('Class_Obtained').subscribe(result => {
+      this.classObtained = result;
+    });
+    this.personDetailsService.getDropDown('Qualification_Level').subscribe(result => {
+      this.qualificationLevel = result;
+    });
 
   }
   openDialog(id) {

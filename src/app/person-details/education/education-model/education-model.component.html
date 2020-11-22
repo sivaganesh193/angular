@@ -1,66 +1,66 @@
 <h2 mat-dialog-title>Educational Qualification</h2>
 <mat-dialog-content>
   <div class="active-content">
-    <form class="form-field-container">
+    <form class="form-field-container" [formGroup]="educationForm">
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Qualification Level</mat-label>
-        <mat-select name="qualification-level" [(ngModel)]="data.Qualification_Level_Ref" >
+        <mat-select formControlName="Qualification_Level_Ref" >
           <mat-option *ngFor="let q of input.qualificationLevel" [value]="q.Ref_Code">{{q.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Degree</mat-label>
-        <mat-select name="degree" [(ngModel)]="data.Degree_Ref">
+        <mat-select formControlName="Degree_Ref">
           <mat-option *ngFor="let d of input.degree" [value]="d.Ref_Code">{{d.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Branch</mat-label>
-        <mat-select name="branch" [(ngModel)]="data.Branch_Ref" >
+        <mat-select formControlName="Branch_Ref" >
           <mat-option *ngFor="let b of input.branch" [value]="b.Ref_Code">{{b.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field" >
         <mat-label>Institution</mat-label>
-        <input matInput name="institution" [(ngModel)]="data.Institution"  >
+        <input matInput formControlName="Institution"  >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>University</mat-label>
-        <input matInput name="university" [(ngModel)]="data.University"  >
+        <input matInput formControlName="University"  >
       </mat-form-field>
       <mat-form-field  class="form-field-dropdown" appearance="fill">
         <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="pickerStart" name="startDate" [(ngModel)]="startYear">
+        <input matInput [matDatepicker]="pickerStart" formControlName="Start_Date">
         <mat-datepicker-toggle matSuffix [for]="pickerStart">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
-        <mat-datepicker #pickerStart startView="multi-year" (yearSelected)="startYearSelected($event, pickerStart)"></mat-datepicker>
+        <mat-datepicker #pickerStart startView="multi-year" ></mat-datepicker>
       </mat-form-field>
       <mat-form-field  class="form-field-dropdown" appearance="fill">
         <mat-label>End Date</mat-label>
-        <input matInput [matDatepicker]="pickerEnd" name="endDate" [(ngModel)]="endYear">
+        <input matInput [matDatepicker]="pickerEnd" formControlName="End_Date">
         <mat-datepicker-toggle matSuffix [for]="pickerEnd">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
-        <mat-datepicker #pickerEnd startView="multi-year" (yearSelected)="endYearSelected($event, pickerEnd)"></mat-datepicker>
+        <mat-datepicker #pickerEnd startView="multi-year"></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Class Obtained</mat-label>
-        <mat-select name="class-obtained" [(ngModel)]="data.Class_Obtained_Ref">
+        <mat-select formControlName="Class_Obtained_Ref">
           <mat-option *ngFor="let c of input.classObtained" [value]="c.Ref_Code">{{c.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Thesis Title</mat-label>
-        <input matInput name="thesis-title" [(ngModel)]="data.Thesis_Title"  >
+        <input matInput formControlName="Thesis_Title"  >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Specilization</mat-label>
-        <input matInput name="specialization" [(ngModel)]="data.Specialization"  >
+        <input matInput formControlName="Specialization"  >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Faculty Research</mat-label>
-        <input matInput name="research" [(ngModel)]="data.Faculty_Research"  >
+        <input matInput formControlName="Faculty_Research"  >
       </mat-form-field><br>
 
     </form>

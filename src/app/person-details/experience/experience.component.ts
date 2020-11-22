@@ -52,15 +52,16 @@ export class ExperienceComponent implements OnInit {
     this.queryRef.valueChanges.subscribe((result: any) => {
       console.log(result.data);
       this.experiences = result.data.person_experiences;
-      this.personDetailsService.getDropDown('Designation').subscribe(result => {
-        this.designation = result;
-      });
-      this.personDetailsService.getDropDown('Emp_Category').subscribe(result => {
-        this.empCategory = result;
-      });
-      this.personDetailsService.getDropDown('Work Nature').subscribe(result => {
-        this.workNature = result;
-      });
+
+    });
+    this.personDetailsService.getDropDown('Designation').subscribe(result => {
+      this.designation = result;
+    });
+    this.personDetailsService.getDropDown('Emp_Category').subscribe(result => {
+      this.empCategory = result;
+    });
+    this.personDetailsService.getDropDown('Work Nature').subscribe(result => {
+      this.workNature = result;
     });
   }
   openDialog(id) {
@@ -85,7 +86,7 @@ export class ExperienceComponent implements OnInit {
           variables: {
             data: {
               Experience_ID: result.Experience_ID,
-             
+
               Designation_Ref: result.Designation_Ref,
               Organization: result.Organization,
               Department: result.Department,

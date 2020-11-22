@@ -1,0 +1,8 @@
+<p>awards works!</p>
+<div *ngFor="let a of awards">
+  <p>{{a | json}}</p>
+  <button (click)="openDialog(a.Award_ID)">Edit</button>
+  <button (click)="deleteDialog(a.Award_ID)">Delete</button>
+
+</div>
+<button (click)="createDialog()">Click Here</button>

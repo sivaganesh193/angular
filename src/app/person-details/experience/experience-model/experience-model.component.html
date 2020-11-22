@@ -1,24 +1,24 @@
 <h2 mat-dialog-title>Experience</h2>
 <mat-dialog-content>
   <div class="active-content">
-    <form class="form-field-container">
+    <form class="form-field-container" [formGroup]="experienceForm">
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Designation</mat-label>
-        <mat-select name="designation" [(ngModel)]="data.Designation_Ref" >
+        <mat-select formControlName="Designation_Ref" >
           <mat-option *ngFor="let q of input.designation" [value]="q.Ref_Code">{{q.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field" >
         <mat-label>Organization</mat-label>
-        <input matInput name="organization" [(ngModel)]="data.Organization"  >
+        <input matInput formControlName="Organization"  >
       </mat-form-field>
       <mat-form-field class="form-field" >
         <mat-label>Department</mat-label>
-        <input matInput name="department" [(ngModel)]="data.Department"  >
+        <input matInput formControlName="Department"  >
       </mat-form-field>
       <mat-form-field  class="form-field-dropdown" appearance="fill">
         <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="pickerStart" name="dob-s" [(ngModel)]="data.Start_Date">
+        <input matInput [matDatepicker]="pickerStart" formControlName="Start_Date">
         <mat-datepicker-toggle matSuffix [for]="pickerStart">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
@@ -26,7 +26,7 @@
       </mat-form-field>
       <mat-form-field  class="form-field-dropdown" appearance="fill">
         <mat-label>End Date</mat-label>
-        <input matInput [matDatepicker]="pickerEnd" name="dob-e" [(ngModel)]="data.End_Date">
+        <input matInput [matDatepicker]="pickerEnd" formControlName="End_Date">
         <mat-datepicker-toggle matSuffix [for]="pickerEnd">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
@@ -34,19 +34,19 @@
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Employee Category</mat-label>
-        <mat-select name="emp-category" [(ngModel)]="data.Emp_Category_Ref" >
+        <mat-select formControlName="Emp_Category_Ref" >
           <mat-option *ngFor="let q of input.empCategory" [value]="q.Ref_Code">{{q.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field-dropdown" appearance="fill">
         <mat-label>Work Nature</mat-label>
-        <mat-select name="work-nature" [(ngModel)]="data.Work_Nature_Ref" >
+        <mat-select formControlName="Work_Nature_Ref" >
           <mat-option *ngFor="let q of input.workNature" [value]="q.Ref_Code">{{q.Ref_Name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form-field" >
         <mat-label>Position Held</mat-label>
-        <input matInput name="position-held" [(ngModel)]="data.Position_Held"  >
+        <input matInput formControlName="Position_Held"  >
       </mat-form-field>
     </form>
   </div>

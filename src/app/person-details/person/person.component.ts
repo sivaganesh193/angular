@@ -67,24 +67,25 @@ export class PersonComponent implements OnInit {
     this.queryRef.valueChanges.subscribe(((result: any) => {
         console.log(result.data.person);
         this.person = JSON.parse(JSON.stringify(result.data['person']));
-        this.personDetailsService.getDropDown('Gender').subscribe(result => {
-          this.gender = result;
-        });
-        this.personDetailsService.getDropDown('Prefix').subscribe(result => {
-          this.prefix = result;
-        });
-        this.personDetailsService.getDropDown('Community').subscribe(result => {
-          this.community = result;
-        });
-        this.personDetailsService.getDropDown('Marital_Status').subscribe(result => {
-          this.maritalStatus = result;
-        });
         var temp = parseFloat(result.data.person['DOB']) / 1000;
         var myDate = new Date(0);
         myDate.setUTCSeconds(temp);
         console.log(myDate);
         this.person.DOB = myDate ;
       }));
+
+    this.personDetailsService.getDropDown('Gender').subscribe(result => {
+      this.gender = result;
+    });
+    this.personDetailsService.getDropDown('Prefix').subscribe(result => {
+      this.prefix = result;
+    });
+    this.personDetailsService.getDropDown('Community').subscribe(result => {
+      this.community = result;
+    });
+    this.personDetailsService.getDropDown('Marital_Status').subscribe(result => {
+      this.maritalStatus = result;
+    });
     }
 
 onOpenModel() {

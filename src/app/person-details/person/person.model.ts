@@ -22,8 +22,4 @@ export interface PersonModel {
   Address_Line4: string;
   Marital_Status_Ref: number;
   Room_Num: string;
-  Gender: string;
-  Community: string;
-  Marital_Status: string;
-  Prefix: string;
 }

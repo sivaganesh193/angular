@@ -1,76 +1,47 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import {PublicationModel} from '../publication.model';
-import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as _moment from 'moment';
 import {Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
-const moment = _moment;
-export class CustomDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-    const formatString = 'YYYY';
-    return moment(date).format(formatString);
-  }
-}
 
 @Component({
   selector: 'app-publication-model',
   templateUrl: './publication-model.component.html',
-  styleUrls: ['./publication-model.component.scss'],
-  providers: [
-    {
-      provide: DateAdapter, useClass: CustomDateAdapter
-    }
-  ]
+  styleUrls: ['./publication-model.component.scss']
 })
 export class PublicationModelComponent implements OnInit {
-  date = new FormControl(moment());
-  data: PublicationModel = {
-    Publication_ID : 0,
-    Person_ID: 123,
-    Publication_Type_Ref : 0,
-    Level_Ref: 0,
-    Paper_Title: '',
-    First_Author: '',
-    Second_Author: '',
-    Other_Authors: '',
-    Journal_Name: '',
-    Volume: null,
-    Issue: null,
-    DOI: '',
-    Year_Of_Publish: 0,
-    Start_Page_No: null,
-    End_Page_No: null,
-    Publisher: '',
-    Impact_Factor: 0
-  }
+  publicationForm: FormGroup;
   // tslint:disable-next-line: max-line-length
   constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<PublicationModelComponent>) { }
   publishYear: string;
   ngOnInit(): void {
-    if(this.input.publication) {
-      this.data = JSON.parse(JSON.stringify(this.input.publication));
-      console.log(this.data);
-      this.publishYear = this.data.Year_Of_Publish + '-01-01T18:30:00.000Z';
-    }
-    else {
-
-    }
-  }
-  yearSelected(params, picker) {
-    console.log(params);
-    this.date.setValue(params);
-    this.publishYear = this.date.value;
-    picker.close();
-    console.log(this.date.value);
+    this.publicationForm = new FormGroup({
+      Publication_ID : new FormControl(this.input.publication != null ? this.input.publication.Publication_ID : ''),
+      Person_ID: new FormControl(this.input.publication != null ? this.input.publication.Person_ID : 123),
+      Publication_Type_Ref : new FormControl(this.input.publication != null ? this.input.publication.Publication_Type_Ref : ''),
+      Level_Ref: new FormControl(this.input.publication != null ? this.input.publication.Level_Ref : ''),
+      Paper_Title: new FormControl(this.input.publication != null ? this.input.publication.Paper_Title : ''),
+      First_Author: new FormControl(this.input.publication != null ? this.input.publication.First_Author : ''),
+      Second_Author: new FormControl(this.input.publication != null ? this.input.publication.Second_Author : ''),
+      Other_Authors: new FormControl(this.input.publication != null ? this.input.publication.Other_Authors : ''),
+      Journal_Name: new FormControl(this.input.publication != null ? this.input.publication.Journal_Name : ''),
+      Volume: new FormControl(this.input.publication != null ? this.input.publication.Volume : ''),
+      Issue: new FormControl(this.input.publication != null ? this.input.publication.Issue : ''),
+      DOI: new FormControl(this.input.publication != null ? this.input.publication.DOI : ''),
+      Year_Of_Publish: new FormControl(this.input.publication != null ?
+        this.input.publication.Year_Of_Publish + '-01-01T18:30:00.000Z' : ''),
+      Start_Page_No: new FormControl(this.input.publication != null ? this.input.publication.Start_Page_No : ''),
+      End_Page_No: new FormControl(this.input.publication != null ? this.input.publication.End_Page_No : ''),
+      Publisher: new FormControl(this.input.publication != null ? this.input.publication.Publisher : ''),
+      Impact_Factor: new FormControl(this.input.publication != null ? this.input.publication.Impact_Factor : '')
+    });
   }
   onSubmit() {
-    const publishYear = new Date(this.publishYear);
+    const publishYear = new Date(this.publicationForm.value.Year_Of_Publish);
     console.log(publishYear.getFullYear());
 
-    this.data.Year_Of_Publish = publishYear.getFullYear();
-    this.dialogRef.close(this.data);
+    this.publicationForm.value.Year_Of_Publish = publishYear.getFullYear();
+    this.dialogRef.close(this.publicationForm.value);
   }
 
 }

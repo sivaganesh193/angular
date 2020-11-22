@@ -1,86 +1,49 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as _moment from 'moment';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import { EducationModel } from '../education.model';
-const moment = _moment;
-export class CustomDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-    const formatString = 'YYYY';
-    return moment(date).format(formatString);
-  }
-}
 
 @Component({
   selector: 'app-education-model',
   templateUrl: './education-model.component.html',
-  styleUrls: ['./education-model.component.scss'],
-  providers: [
-    {
-      provide: DateAdapter, useClass: CustomDateAdapter
-    }
-  ]
+  styleUrls: ['./education-model.component.scss']
 })
 export class EducationModelComponent implements OnInit {
-  date = new FormControl(moment());
-  data: EducationModel = {
-    Qualification_ID: 0,
-    Institution: '',
-    University: '',
-    Thesis_Title: '',
-    Specialization: '',
-    Faculty_Research: '',
-    Start_Date: 0,
-    End_Date: 0,
-    Person_ID: 123,
-    Qualification_Level_Ref: 0,
-    Qualification_Level: '',
-    Degree_Ref: 0,
-    Degree: '',
-    Branch_Ref: 0,
-    Branch: '',
-    Class_Obtained_Ref: 0,
-    Class_Obtained: ''
-  };
+  educationForm: FormGroup;
   // tslint:disable-next-line: max-line-length
   constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<EducationModelComponent>) { }
   startYear: string;
   endYear: string;
-  startYearSelected(params, picker) {
-    console.log(params);
-    this.date.setValue(params);
-    this.startYear = this.date.value;
-    picker.close();
-    console.log(this.date.value);
-  }
-  endYearSelected(params, picker) {
-    console.log(params);
-    this.date.setValue(params);
-    this.endYear = this.date.value;
-    picker.close();
-  }
   ngOnInit(): void {
-    if (this.input.qualification) {
-      this.data = JSON.parse(JSON.stringify(this.input.qualification));
-      this.startYear = this.data.Start_Date + '-01-01T18:30:00.000Z';
-      this.endYear = this.data.End_Date + '-01-01T18:30:00.000Z';
-    }
-    else {
-
-    }
-    console.log(this.data);
+    this.educationForm = new FormGroup({
+      Qualification_ID: new FormControl(this.input.qualification != null ? this.input.qualification.Qualification_ID : ''),
+      Institution: new FormControl(this.input.qualification != null ? this.input.qualification.Institution : ''),
+      University: new FormControl(this.input.qualification != null ? this.input.qualification.University : ''),
+      Thesis_Title: new FormControl(this.input.qualification != null ? this.input.qualification.Thesis_Title : ''),
+      Specialization: new FormControl(this.input.qualification != null ? this.input.qualification.Specialization : ''),
+      Faculty_Research: new FormControl(this.input.qualification != null ? this.input.qualification.Faculty_Research : ''),
+      Start_Date: new FormControl(this.input.qualification != null ? this.input.qualification.Start_Date + '-01-01T18:30:00.000Z' : ''),
+      End_Date: new FormControl(this.input.qualification != null ? this.input.qualification.End_Date + '-01-01T18:30:00.000Z' : ''),
+      Person_ID: new FormControl(this.input.qualification != null ? this.input.qualification.Person_ID : 123),
+      Qualification_Level_Ref: new FormControl(this.input.qualification != null ? this.input.qualification.Qualification_Level_Ref : ''),
+      Degree_Ref: new FormControl(this.input.qualification != null ? this.input.qualification.Degree_Ref : ''),
+      Branch_Ref: new FormControl(this.input.qualification != null ? this.input.qualification.Branch_Ref : ''),
+      Class_Obtained_Ref: new FormControl(this.input.qualification != null ? this.input.qualification.Class_Obtained_Ref : '')
+    });
+    console.log(this.educationForm.value);
   }
   onSubmit() {
-    const StartDate = new Date(this.startYear);
-    const EndDate = new Date(this.endYear);
-    console.log(StartDate.getFullYear());
+    const StartDate = new Date(this.educationForm.value.Start_Date);
+    const EndDate = new Date(this.educationForm.value.End_Date);
 
-    this.data.Start_Date = StartDate.getFullYear();
-    this.data.End_Date = EndDate.getFullYear();
-    this.dialogRef.close(this.data);
+    this.educationForm.value.Start_Date = StartDate.getFullYear();
+    this.educationForm.value.End_Date = EndDate.getFullYear();
+    console.log(this.educationForm.value)
+    this.dialogRef.close(this.educationForm.value);
   }
 
 }

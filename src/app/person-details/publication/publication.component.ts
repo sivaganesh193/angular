@@ -64,12 +64,13 @@ export class PublicationComponent implements OnInit {
       this.publications = result.data.person_publications;
       this.pageSlice = this.publications.slice(0, 2);
       this.filterResults = [...this.publications];
-      this.personDetailsService.getDropDown('Publication_Type').subscribe(result => {
-        this.publicationType = result;
-      });
-      this.personDetailsService.getDropDown('Level').subscribe(result => {
-        this.level = result;
-      });
+
+    });
+    this.personDetailsService.getDropDown('Publication_Type').subscribe(result => {
+      this.publicationType = result;
+    });
+    this.personDetailsService.getDropDown('Level').subscribe(result => {
+      this.level = result;
     });
   }
   filterPublicationType(ref) {

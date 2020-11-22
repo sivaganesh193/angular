@@ -6,6 +6,7 @@ import {PersonComponent} from './person/person.component';
 import {PublicationComponent} from './publication/publication.component';
 import {AuthGuard} from '../auth/auth.guard';
 import { ExperienceComponent } from './experience/experience.component';
+import { AwardsComponent } from './awards/awards.component';
 const routes: Routes = [
   {
     path: 'person-details',
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'experience',
         component: ExperienceComponent
+      },
+      {
+        path: 'awards',
+        component: AwardsComponent
       }
     ]
   }

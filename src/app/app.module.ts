@@ -42,6 +42,8 @@ import { AlertboxComponent } from './alertbox/alertbox.component';
 import { FilterPipe } from './person-details/filter.pipe';
 import { ExperienceComponent } from './person-details/experience/experience.component';
 import { ExperienceModelComponent } from './person-details/experience/experience-model/experience-model.component';
+import { AwardsComponent } from './person-details/awards/awards.component';
+import { AwardsModelComponent } from './person-details/awards/awards-model/awards-model.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,9 +59,12 @@ import { ExperienceModelComponent } from './person-details/experience/experience
     AlertboxComponent,
     FilterPipe,
     ExperienceComponent,
-    ExperienceModelComponent
+    ExperienceModelComponent,
+    AwardsComponent,
+    AwardsModelComponent
   ],
-  entryComponents: [EducationModelComponent, PersonModelComponent, PublicationModelComponent, AlertboxComponent, ExperienceModelComponent],
+  entryComponents: [EducationModelComponent, PersonModelComponent,
+    PublicationModelComponent, AlertboxComponent, ExperienceModelComponent, AwardsModelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
