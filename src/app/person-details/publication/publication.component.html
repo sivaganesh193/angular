@@ -4,9 +4,10 @@
       <mat-label>Search</mat-label>
       <input matInput [(ngModel)] = "searchText" name="search" (keyup)="changeHandler()" placeholder="Paper Title" autofocus>
     </mat-form-field>
-<div class="publication-section" *ngIf="publications!=null">
+<div class="publication-section" >
 
-    <h3 class="section-title">Publications</h3>
+    <div *ngIf="publications!=null">
+      <h3 class="section-title">Publications</h3>
 
     <div *ngFor="let p of pageSlice">
     <div class="publication">
@@ -49,6 +50,7 @@
         <br>
     <div class="button" (click)="createDialog()">Add Publication</div>
     <mat-paginator *ngIf="filterResults != null" [length]="filterResults.length" [pageSize]="2" (page)="OnPageChange($event)"></mat-paginator>
+    </div>
 </div>
 </div>
 </div>

@@ -1,7 +1,8 @@
 <div class="container">
   <div class="main">
-      <section class="experience-section" *ngIf="experiences!=null">
-          <h2 class="exp-title">Work Experience</h2>
+      <section class="experience-section" >
+          <div *ngIf="experiences!=null">
+            <h2 class="exp-title">Work Experience</h2>
           <span class="horizontal-line-break"></span>
 
           <div class="experience" *ngFor="let e of experiences">
@@ -21,6 +22,7 @@
                 <span class="nature" *ngIf="workNature!=null">Work Nature - {{filterWorkNature(e.Work_Nature_Ref).Ref_Name}}</span>
             </div>
         </div>
+          </div>
 
           <button class="add-experience-button" (click)="createDialog()">Add Experience</button>
       </section>

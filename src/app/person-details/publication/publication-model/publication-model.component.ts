@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as _moment from 'moment';
 import {Apollo} from 'apollo-angular';
@@ -18,21 +18,23 @@ export class PublicationModelComponent implements OnInit {
     this.publicationForm = new FormGroup({
       Publication_ID : new FormControl(this.input.publication != null ? this.input.publication.Publication_ID : ''),
       Person_ID: new FormControl(this.input.publication != null ? this.input.publication.Person_ID : 123),
-      Publication_Type_Ref : new FormControl(this.input.publication != null ? this.input.publication.Publication_Type_Ref : ''),
-      Level_Ref: new FormControl(this.input.publication != null ? this.input.publication.Level_Ref : ''),
-      Paper_Title: new FormControl(this.input.publication != null ? this.input.publication.Paper_Title : ''),
-      First_Author: new FormControl(this.input.publication != null ? this.input.publication.First_Author : ''),
+      Publication_Type_Ref : new FormControl(this.input.publication != null ?
+         this.input.publication.Publication_Type_Ref : '', Validators.required),
+      Level_Ref: new FormControl(this.input.publication != null ? this.input.publication.Level_Ref : '', Validators.required),
+      Paper_Title: new FormControl(this.input.publication != null ? this.input.publication.Paper_Title : '', Validators.required),
+      First_Author: new FormControl(this.input.publication != null ? this.input.publication.First_Author : '', Validators.required),
       Second_Author: new FormControl(this.input.publication != null ? this.input.publication.Second_Author : ''),
       Other_Authors: new FormControl(this.input.publication != null ? this.input.publication.Other_Authors : ''),
-      Journal_Name: new FormControl(this.input.publication != null ? this.input.publication.Journal_Name : ''),
-      Volume: new FormControl(this.input.publication != null ? this.input.publication.Volume : ''),
-      Issue: new FormControl(this.input.publication != null ? this.input.publication.Issue : ''),
-      DOI: new FormControl(this.input.publication != null ? this.input.publication.DOI : ''),
+      Journal_Name: new FormControl(this.input.publication != null ? this.input.publication.Journal_Name : '', Validators.required),
+      Volume: new FormControl(this.input.publication != null ? this.input.publication.Volume : '',
+      [Validators.required, Validators.min(1)]),
+      Issue: new FormControl(this.input.publication != null ? this.input.publication.Issue : '', [Validators.required, Validators.min(1)]),
+      DOI: new FormControl(this.input.publication != null ? this.input.publication.DOI : '', Validators.required),
       Year_Of_Publish: new FormControl(this.input.publication != null ?
-        this.input.publication.Year_Of_Publish + '-01-01T18:30:00.000Z' : ''),
+        this.input.publication.Year_Of_Publish + '-01-01T18:30:00.000Z' : '', Validators.required),
       Start_Page_No: new FormControl(this.input.publication != null ? this.input.publication.Start_Page_No : ''),
       End_Page_No: new FormControl(this.input.publication != null ? this.input.publication.End_Page_No : ''),
-      Publisher: new FormControl(this.input.publication != null ? this.input.publication.Publisher : ''),
+      Publisher: new FormControl(this.input.publication != null ? this.input.publication.Publisher : '', Validators.required),
       Impact_Factor: new FormControl(this.input.publication != null ? this.input.publication.Impact_Factor : '')
     });
   }

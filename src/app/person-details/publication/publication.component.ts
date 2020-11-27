@@ -116,7 +116,7 @@ export class PublicationComponent implements OnInit {
           }
         }).subscribe(({data}) => {
           this.queryRef.refetch().then(() => {
-            this.paginator.lastPage();
+            this.paginator.firstPage();
           });
 
         });
@@ -189,7 +189,7 @@ export class PublicationComponent implements OnInit {
           }
         }).subscribe(({data}) => {
           this.queryRef.refetch();
-          this.changeHandler();
+          this.paginator.firstPage();
         });
       }
     });
