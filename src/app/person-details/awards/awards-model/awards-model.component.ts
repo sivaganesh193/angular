@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
+import { ApolloCache, ApolloClient, InMemoryCache } from '@apollo/client/core';
 @Component({
   selector: 'app-awards-model',
   templateUrl: './awards-model.component.html',
@@ -11,7 +12,9 @@ import gql from 'graphql-tag';
 })
 export class AwardsModelComponent implements OnInit {
   awardForm: FormGroup;
-  constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<AwardsModelComponent>) { }
+  fileToUpload: File;
+  constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<AwardsModelComponent>) {
+   }
 
   ngOnInit(): void {
     this.awardForm = new FormGroup({
@@ -25,7 +28,7 @@ export class AwardsModelComponent implements OnInit {
       Details: new FormControl(this.input.award != null ? this.input.award.Details : '', Validators.required)
     });
   }
-  onSubmit() {
+  onSubmit(): void {
     const StartDate = new Date(this.awardForm.value.Start_Year);
 
     this.awardForm.value.Start_Year = StartDate.getFullYear();

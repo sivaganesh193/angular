@@ -1,18 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EducationComponent } from './education/education.component';
-import { PersonDetailsComponent} from './person-details.component';
-import {PersonComponent} from './person/person.component';
-import {PublicationComponent} from './publication/publication.component';
-import {AuthGuard} from '../auth/auth.guard';
-import { ExperienceComponent } from './experience/experience.component';
+import { AcademicsComponent } from './academics/academics.component';
+import { CourseListComponent } from './academics/course-list/course-list.component';
 import { AwardsComponent } from './awards/awards.component';
+import { EducationComponent } from './education/education.component';
+import { ExperienceComponent } from './experience/experience.component';
+
+import { PersonDetailsComponent} from './person-details.component';
+import { PersonComponent } from './person/person.component';
+import {PublicationComponent} from './publication/publication.component';
+
 const routes: Routes = [
   {
     path: 'person-details',
     component: PersonDetailsComponent,
-    canActivate: [AuthGuard],
     children: [
+      {
+        path: 'awards',
+        component: AwardsComponent
+      },
+      {
+        path: 'experience',
+        component: ExperienceComponent
+      },
+      {
+        path: 'publication',
+        component: PublicationComponent
+      },
       {
         path: 'person',
         component: PersonComponent
@@ -22,24 +36,19 @@ const routes: Routes = [
         component: EducationComponent
       },
       {
-        path: 'publication',
-        component: PublicationComponent
+        path: 'academics',
+        component: AcademicsComponent
       },
       {
-        path: 'experience',
-        component: ExperienceComponent
-      },
-      {
-        path: 'awards',
-        component: AwardsComponent
+        path: 'academics/course-list',
+        component: CourseListComponent
       }
     ]
   }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  providers: [AuthGuard]
+  exports: [RouterModule]
   })
 export class PersonDetailsRoutingModule {
 

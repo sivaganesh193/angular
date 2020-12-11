@@ -6,8 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import {Apollo, QueryRef} from 'apollo-angular';
 import gql from 'graphql-tag';
 
-import { AlertboxComponent } from 'src/app/alertbox/alertbox.component';
+import { AlertboxComponent } from '../../shared/alertbox/alertbox.component';
 import { ExperienceModelComponent } from './experience-model/experience-model.component';
+import { PersonReferenceModel } from '../person-reference.model';
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
@@ -15,12 +16,12 @@ import { ExperienceModelComponent } from './experience-model/experience-model.co
 })
 export class ExperienceComponent implements OnInit {
   experiences: ExperienceModel[];
-  designation;
-  empCategory;
-  workNature;
+  designation: PersonReferenceModel[];
+  empCategory: PersonReferenceModel[];
+  workNature: PersonReferenceModel[];
 
-  queryRef: QueryRef<ExperienceModel[]>;
-  constructor(public dialog: MatDialog, private apollo: Apollo,  public personDetailsService: PersonDetailsService) { }
+  queryRef: QueryRef<ExperienceModel[], any>;
+  constructor(public dialog: MatDialog, private apollo: Apollo,  private personDetailsService: PersonDetailsService) { }
 
   ngOnInit(): void {
     const id = this.personDetailsService.getPersonID();
@@ -64,9 +65,9 @@ export class ExperienceComponent implements OnInit {
       this.workNature = result;
     });
   }
-  openDialog(id) {
+  openDialog(id: number): void {
     const experience = this.experiences.filter((q) => q.Experience_ID === id);
-    let dialogUpdateRef = this.dialog.open(ExperienceModelComponent, {data: {
+    const dialogUpdateRef = this.dialog.open(ExperienceModelComponent, {data: {
       designation: this.designation,
       workNature: this.workNature,
       empCategory: this.empCategory,
@@ -99,12 +100,12 @@ export class ExperienceComponent implements OnInit {
           }
         }).subscribe(({data}) => {
           this.queryRef.refetch();
-        })
+        });
       }
     });
   }
-  createDialog() {
-    let dialogCreateRef = this.dialog.open(ExperienceModelComponent, {data: {
+  createDialog(): void {
+    const dialogCreateRef = this.dialog.open(ExperienceModelComponent, {data: {
       designation: this.designation,
       workNature: this.workNature,
       empCategory: this.empCategory
@@ -139,13 +140,13 @@ export class ExperienceComponent implements OnInit {
       }
     });
   }
-  getDate(newDate) {
+  getDate(newDate: any): Date {
      const d = new Date(newDate);
-      const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-      return d;
+    // const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+     return d;
   }
-  deleteDialog(id) {
-    let dialogDeleteRef = this.dialog.open(AlertboxComponent);
+  deleteDialog(id: number): void {
+    const dialogDeleteRef = this.dialog.open(AlertboxComponent);
     dialogDeleteRef.afterClosed().subscribe(result => {
       if(result) {
         console.log(result);
@@ -168,15 +169,15 @@ export class ExperienceComponent implements OnInit {
     });
 
       }
-    })
+    });
   }
-  filterDesignation(ref) {
+  filterDesignation(ref: number): PersonReferenceModel {
     return this.designation.filter(l => l.Ref_Code === ref)[0];
   }
-  filterEmpCategory(ref) {
+  filterEmpCategory(ref: number): PersonReferenceModel {
     return this.empCategory.filter(l => l.Ref_Code === ref)[0];
   }
-  filterWorkNature(ref) {
+  filterWorkNature(ref: number): PersonReferenceModel {
     return this.workNature.filter(l => l.Ref_Code === ref)[0];
   }
 

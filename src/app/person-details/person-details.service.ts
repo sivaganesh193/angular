@@ -11,7 +11,7 @@ export class PersonDetailsService {
   getPersonID() {
     return this.Person_ID;
   }
-  getDropDown(str) {
+  getDropDown(str: string) {
     const req = gql`
       query personReference($data: Person_Reference_Input) {
 

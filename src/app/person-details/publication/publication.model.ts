@@ -1,7 +1,6 @@
 export interface PublicationModel {
   Person_ID: number;
   Publication_ID: number;
-  
   Publication_Type_Ref: number;
   Level_Ref: number;
   Paper_Title: string;

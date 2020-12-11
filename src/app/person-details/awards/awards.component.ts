@@ -5,7 +5,7 @@ import {Apollo, QueryRef} from 'apollo-angular';
 import gql from 'graphql-tag';
 import {AwardsModel} from './awards.model';
 import { PersonDetailsService } from '../person-details.service';
-import {AlertboxComponent} from '../../alertbox/alertbox.component';
+import {AlertboxComponent} from '../../shared/alertbox/alertbox.component';
 @Component({
   selector: 'app-awards',
   templateUrl: './awards.component.html',
@@ -13,7 +13,7 @@ import {AlertboxComponent} from '../../alertbox/alertbox.component';
 })
 export class AwardsComponent implements OnInit {
   awards: AwardsModel[];
-  queryRef: QueryRef<AwardsModel[]>;
+  queryRef: QueryRef<AwardsModel[], any>;
   constructor(public dialog: MatDialog,  private apollo: Apollo, public personDetailsService: PersonDetailsService) { }
 
   ngOnInit(): void {
@@ -40,15 +40,15 @@ export class AwardsComponent implements OnInit {
         }
       }
     });
-    this.queryRef.valueChanges.subscribe(result => {
-      this.awards = JSON.parse(JSON.stringify(result.data['personAwards']));
+    this.queryRef.valueChanges.subscribe((result: any) => {
+      this.awards = JSON.parse(JSON.stringify(result.data.personAwards));
       console.log(this.awards);
 
     });
   }
-  openDialog(id) {
+  openDialog(id: number): void {
     const award = this.awards.filter((q) => q.Award_ID === id);
-    let dialogUpdateRef = this.dialog.open(AwardsModelComponent, {data: {
+    const dialogUpdateRef = this.dialog.open(AwardsModelComponent, {data: {
       award : award[0],
     }  });
     dialogUpdateRef.afterClosed().subscribe(result => {
@@ -80,8 +80,8 @@ export class AwardsComponent implements OnInit {
       }});
 
     }
-    createDialog() {
-      let dialogCreateRef = this.dialog.open(AwardsModelComponent, {data: {
+    createDialog(): void {
+      const dialogCreateRef = this.dialog.open(AwardsModelComponent, {data: {
       }  });
       dialogCreateRef.afterClosed().subscribe(result => {
         if (result) {
@@ -115,10 +115,10 @@ export class AwardsComponent implements OnInit {
 
 
     }
-    deleteDialog(id) {
-    let dialogDeleteRef = this.dialog.open(AlertboxComponent);
+    deleteDialog(id: number): void {
+    const dialogDeleteRef = this.dialog.open(AlertboxComponent);
     dialogDeleteRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(result);
         const req = gql `
         mutation deletePersonAward($data: awardDeleteInput!) {

@@ -14,9 +14,9 @@ export class ExperienceModelComponent implements OnInit {
   experienceForm: FormGroup;
   // tslint:disable-next-line: max-line-length
   constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<ExperienceModelComponent>) { }
-  getDate(inputDate) {
-    var temp = parseFloat(inputDate) / 1000;
-    var myDate = new Date(0);
+  getDate(inputDate: any): Date {
+    const temp = parseFloat(inputDate) / 1000;
+    const myDate = new Date(0);
     myDate.setUTCSeconds(temp);
     return myDate;
   }
@@ -34,7 +34,7 @@ export class ExperienceModelComponent implements OnInit {
       Position_Held: new FormControl(this.input.experience != null ? this.input.experience.Position_Held : ''),
     });
   }
-  onSubmit() {
+  onSubmit(): void {
     this.dialogRef.close(this.experienceForm.value);
   }
 

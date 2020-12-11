@@ -7,6 +7,7 @@ import { PersonModelComponent } from './person-model/person-model.component';
 import { PersonModel } from './person.model';
 import {PersonDetailsService} from '../person-details.service';
 import { map } from 'rxjs/operators';
+import { PersonReferenceModel } from '../person-reference.model';
 
 @Component({
   selector: 'app-person',
@@ -16,14 +17,13 @@ import { map } from 'rxjs/operators';
 })
 
 export class PersonComponent implements OnInit {
-  prefix;
-  community;
-  caste;
-  maritalStatus;
-
+  prefix: PersonReferenceModel[];
+  community: PersonReferenceModel[];
+  caste: PersonReferenceModel[];
+  maritalStatus: PersonReferenceModel[];
+  gender: PersonReferenceModel[];
   person: PersonModel;
-  gender;
-  queryRef: QueryRef<PersonModel>;
+  queryRef: QueryRef<PersonModel, any>;
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private apollo: Apollo, public dialog: MatDialog, public personDetailsService: PersonDetailsService) { }
 
@@ -66,9 +66,9 @@ export class PersonComponent implements OnInit {
       });
     this.queryRef.valueChanges.subscribe(((result: any) => {
         console.log(result.data.person);
-        this.person = JSON.parse(JSON.stringify(result.data['person']));
-        var temp = parseFloat(result.data.person['DOB']) / 1000;
-        var myDate = new Date(0);
+        this.person = JSON.parse(JSON.stringify(result.data.person));
+        const temp = parseFloat(result.data.person.DOB) / 1000;
+        const myDate = new Date(0);
         myDate.setUTCSeconds(temp);
         console.log(myDate);
         this.person.DOB = myDate ;
@@ -88,9 +88,9 @@ export class PersonComponent implements OnInit {
     });
     }
 
-onOpenModel() {
+onOpenModel(): void {
 
-  let dialogRef = this.dialog.open(PersonModelComponent, { data: {
+  const dialogRef = this.dialog.open(PersonModelComponent, { data: {
     person: this.person,
     gender: this.gender,
     prefix: this.prefix,
@@ -151,16 +151,16 @@ onOpenModel() {
 
 }
 
-filterPrefix() {
+filterPrefix(): PersonReferenceModel {
   return this.prefix.filter(l => l.Ref_Code === this.person.Prefix_Ref)[0];
 }
-filterGender() {
+filterGender(): PersonReferenceModel {
   return this.gender.filter(l => l.Ref_Code === this.person.Gender_Ref)[0];
 }
-filterStatus() {
+filterStatus(): PersonReferenceModel {
   return this.maritalStatus.filter(l => l.Ref_Code === this.person.Marital_Status_Ref)[0];
 }
-filterCommunity() {
+filterCommunity(): PersonReferenceModel {
   return this.community.filter(l => l.Ref_Code === this.person.Community_Ref)[0];
 }
 }

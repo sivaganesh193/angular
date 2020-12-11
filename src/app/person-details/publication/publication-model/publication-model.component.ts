@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as _moment from 'moment';
 import {Apollo} from 'apollo-angular';
 
@@ -11,8 +11,10 @@ import {Apollo} from 'apollo-angular';
 })
 export class PublicationModelComponent implements OnInit {
   publicationForm: FormGroup;
-  // tslint:disable-next-line: max-line-length
-  constructor(@Inject(MAT_DIALOG_DATA) public input: any, private apollo: Apollo, public dialogRef: MatDialogRef<PublicationModelComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public input: any,
+              private apollo: Apollo,
+              public dialogRef: MatDialogRef<PublicationModelComponent>,
+              private fb: FormBuilder) { }
   publishYear: string;
   ngOnInit(): void {
     this.publicationForm = new FormGroup({
@@ -38,7 +40,7 @@ export class PublicationModelComponent implements OnInit {
       Impact_Factor: new FormControl(this.input.publication != null ? this.input.publication.Impact_Factor : '')
     });
   }
-  onSubmit() {
+  onSubmit(): void {
     const publishYear = new Date(this.publicationForm.value.Year_Of_Publish);
     console.log(publishYear.getFullYear());
 

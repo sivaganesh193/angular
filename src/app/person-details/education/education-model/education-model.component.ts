@@ -41,7 +41,7 @@ export class EducationModelComponent implements OnInit {
     });
     console.log(this.educationForm.value);
   }
-  onSubmit() {
+  onSubmit(): void {
     const StartDate = new Date(this.educationForm.value.Start_Date);
     const EndDate = new Date(this.educationForm.value.End_Date);
 

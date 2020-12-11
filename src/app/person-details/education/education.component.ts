@@ -5,7 +5,8 @@ import {Apollo, QueryRef} from 'apollo-angular';
 import gql from 'graphql-tag';
 import {EducationModel} from './education.model';
 import { PersonDetailsService } from '../person-details.service';
-import {AlertboxComponent} from '../../alertbox/alertbox.component';
+import {AlertboxComponent} from '../../shared/alertbox/alertbox.component';
+import { PersonReferenceModel } from '../person-reference.model';
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
@@ -13,11 +14,11 @@ import {AlertboxComponent} from '../../alertbox/alertbox.component';
 })
 export class EducationComponent implements OnInit {
   qualifications: EducationModel[];
-  queryRef: QueryRef<EducationModel[]>;
-  degree;
-  branch;
-  classObtained;
-  qualificationLevel;
+  queryRef: QueryRef<EducationModel[], any>;
+  degree: PersonReferenceModel[];
+  branch: PersonReferenceModel[];
+  classObtained: PersonReferenceModel[];
+  qualificationLevel: PersonReferenceModel[];
 
   constructor(public dialog: MatDialog,  private apollo: Apollo, public personDetailsService: PersonDetailsService) {  }
 
@@ -51,8 +52,8 @@ export class EducationComponent implements OnInit {
           }
         }
       });
-    this.queryRef.valueChanges.subscribe(result => {
-        this.qualifications = JSON.parse(JSON.stringify(result.data['personQualifications']));
+    this.queryRef.valueChanges.subscribe((result: any) => {
+        this.qualifications = JSON.parse(JSON.stringify(result.data.personQualifications));
 
       });
     this.personDetailsService.getDropDown('Degree').subscribe(result => {
@@ -69,10 +70,10 @@ export class EducationComponent implements OnInit {
     });
 
   }
-  openDialog(id) {
+  openDialog(id: number): void {
     const qualification = this.qualifications.filter((q) => q.Qualification_ID === id);
     console.log(qualification);
-    let dialogUpdateRef = this.dialog.open(EducationModelComponent, {data: {
+    const dialogUpdateRef = this.dialog.open(EducationModelComponent, {data: {
       qualification : qualification[0],
       degree: this.degree,
       branch: this.branch,
@@ -119,8 +120,8 @@ export class EducationComponent implements OnInit {
       }
     });
   }
-  createDialog(){
-    let dialogCreateRef = this.dialog.open(EducationModelComponent, {data: {
+  createDialog(): void{
+    const dialogCreateRef = this.dialog.open(EducationModelComponent, {data: {
       degree: this.degree,
       branch: this.branch,
       classObtained: this.classObtained,
@@ -166,10 +167,10 @@ export class EducationComponent implements OnInit {
     });
 
   }
-  deleteDialog(id) {
-    let dialogDeleteRef = this.dialog.open(AlertboxComponent);
+  deleteDialog(id: number): void {
+    const dialogDeleteRef = this.dialog.open(AlertboxComponent);
     dialogDeleteRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(result);
         const req = gql `
         mutation deletePersonQualification($data: Qualification_InputQuery!) {
@@ -190,18 +191,18 @@ export class EducationComponent implements OnInit {
     });
 
       }
-    })
+    });
   }
-  filterQualificationLevel(ref) {
+  filterQualificationLevel(ref: number): PersonReferenceModel {
     return this.qualificationLevel.filter(l => l.Ref_Code === ref)[0];
   }
-  filterDegree(ref) {
+  filterDegree(ref: number): PersonReferenceModel {
     return this.degree.filter(l => l.Ref_Code === ref)[0];
   }
-  filterBranch(ref) {
+  filterBranch(ref: number): PersonReferenceModel {
     return this.branch.filter(l => l.Ref_Code === ref)[0];
   }
-  filterClassObtained(ref) {
+  filterClassObtained(ref: number): PersonReferenceModel {
     return this.classObtained.filter(l => l.Ref_Code === ref)[0];
   }
 }

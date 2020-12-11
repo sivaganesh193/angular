@@ -43,7 +43,7 @@ export class PersonModelComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     console.log(this.personForm.value);
     this.dialogRef.close(this.personForm.value);
         }

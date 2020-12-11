@@ -5,25 +5,25 @@ import gql from 'graphql-tag';
 import {PublicationModel} from './publication.model';
 import { PersonDetailsService } from '../person-details.service';
 import {PublicationModelComponent} from './publication-model/publication-model.component';
-import { AlertboxComponent } from 'src/app/alertbox/alertbox.component';
+import { AlertboxComponent } from '../../shared/alertbox/alertbox.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { filter } from 'rxjs/operators';
-import { transformAll } from '@angular/compiler/src/render3/r3_ast';
+import { PersonReferenceModel } from '../person-reference.model';
+
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss']
 })
 export class PublicationComponent implements OnInit {
-  publications: PublicationModel[];
-  pageSlice: PublicationModel[];
-  queryRef: QueryRef<PublicationModel[]>;
-  publicationType;
-  level;
-  searchText;
-  filterResults;
+  publications: PublicationModel[] = [];
+  pageSlice: PublicationModel[] = [];
+  queryRef: QueryRef<PublicationModel[], any>;
+  publicationType: PersonReferenceModel[];
+  level: PersonReferenceModel[];
+  searchText = '';
+  filterResults: PublicationModel[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, private apollo: Apollo,  public personDetailsService: PersonDetailsService) { }
+  constructor(public dialog: MatDialog, private apollo: Apollo,  private personDetailsService: PersonDetailsService) { }
 
   ngOnInit(): void {
     const id = this.personDetailsService.getPersonID();
@@ -73,19 +73,19 @@ export class PublicationComponent implements OnInit {
       this.level = result;
     });
   }
-  filterPublicationType(ref) {
+  filterPublicationType(ref: number): PersonReferenceModel {
     return this.publicationType.filter(l => l.Ref_Code === ref)[0];
   }
-  filterLevel(ref) {
+  filterLevel(ref: number): PersonReferenceModel {
     return this.level.filter(l => l.Ref_Code === ref)[0];
   }
-  createDialog() {
-    let dialogCreateRef = this.dialog.open(PublicationModelComponent, {data: {
+  createDialog(): void {
+    const dialogCreateRef = this.dialog.open(PublicationModelComponent, {data: {
       publicationType: this.publicationType,
       level: this.level
     }});
     dialogCreateRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(result);
         const req = gql `
         mutation createPersonPublication($data: Person_PublicationInput!) {
@@ -123,10 +123,10 @@ export class PublicationComponent implements OnInit {
       }
     });
   }
-  deleteDialog(id) {
-    let dialogDeleteRef = this.dialog.open(AlertboxComponent);
+  deleteDialog(id: number): void {
+    const dialogDeleteRef = this.dialog.open(AlertboxComponent);
     dialogDeleteRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(result);
         const req = gql `
         mutation deletePersonPublication($data: Person_PublicationDeleteInput!) {
@@ -148,17 +148,17 @@ export class PublicationComponent implements OnInit {
     });
 
       }
-    })
+    });
   }
-  openDialog(id) {
+  openDialog(id: number): void {
     const publication = this.publications.filter((q) => q.Publication_ID === id);
-    let dialogUpdateRef = this.dialog.open(PublicationModelComponent, {data: {
+    const dialogUpdateRef = this.dialog.open(PublicationModelComponent, {data: {
       publicationType: this.publicationType,
       level: this.level,
       publication: publication[0]
     }});
     dialogUpdateRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log(result);
         const req = gql `
         mutation updatePersonPublication($data: Person_PublicationUpdateInput!) {
@@ -195,7 +195,7 @@ export class PublicationComponent implements OnInit {
     });
 
   }
-  OnPageChange(event: PageEvent) {
+  OnPageChange(event: PageEvent): void {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.filterResults.length) {
@@ -203,7 +203,7 @@ export class PublicationComponent implements OnInit {
     }
     this.pageSlice = this.filterResults.slice(startIndex, endIndex);
   }
-  changeHandler() {
+  changeHandler(): void {
     this.filterResults = this.transform(this.publications, this.searchText);
     this.pageSlice = this.filterResults.slice(0, 2);
   }
